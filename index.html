@@ -1,0 +1,2721 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1">
+
+<title>EchoForma — Generative Soundscapes</title>
+
+<meta name="description"
+      content="EchoForma develops generative soundscapes, spatial audio and sound-based experiences for museums, exhibitions and architectural spaces.">
+
+
+<style>
+
+/* =========================================================
+   CORE
+========================================================= */
+
+:root {
+
+  --bg: #f3eee7;
+  --paper: #faf7f2;
+
+  --ink: #343e47;
+  --muted: #7c858a;
+
+  --dark: #273139;
+  --dark-2: #313d45;
+
+  --mint: #a8c8c3;
+  --mint-bright: #b9ddd7;
+
+  --coral: #e5a18c;
+  --coral-bright: #f0b09a;
+
+  --yellow: #e8d27d;
+
+  --line: rgba(52,62,71,.15);
+
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+
+html {
+  scroll-behavior: smooth;
+}
+
+
+body {
+
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  background:
+
+    radial-gradient(
+      circle at 78% 10%,
+      rgba(168,200,195,.30),
+      transparent 28%
+    ),
+
+    radial-gradient(
+      circle at 15% 70%,
+      rgba(229,161,140,.17),
+      transparent 25%
+    ),
+
+    var(--bg);
+
+  color: var(--ink);
+
+  line-height: 1.6;
+
+  overflow-x: hidden;
+
+}
+
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+a {
+  color: inherit;
+}
+
+
+.container {
+
+  width: min(1080px, 90%);
+
+  margin: auto;
+
+}
+
+
+section {
+
+  padding: 110px 0;
+
+  scroll-margin-top: 80px;
+
+}
+
+
+/* =========================================================
+   BACKGROUND FIELD
+========================================================= */
+
+.background-field {
+
+  position: fixed;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  z-index: -10;
+
+  overflow: hidden;
+
+}
+
+
+.background-field svg {
+
+  width: 100%;
+
+  height: 100%;
+
+}
+
+
+/* =========================================================
+   SIDE SYSTEM
+========================================================= */
+
+.side-system {
+
+  position: fixed;
+
+  top: 0;
+
+  bottom: 0;
+
+  width: 170px;
+
+  z-index: -3;
+
+  pointer-events: none;
+
+  opacity: .85;
+
+}
+
+
+.side-system.left {
+  left: 0;
+}
+
+
+.side-system.right {
+  right: 0;
+}
+
+
+.side-system svg {
+
+  width: 100%;
+
+  height: 100%;
+
+}
+
+
+.side-note {
+
+  position: absolute;
+
+  font-family: monospace;
+
+  font-size: 8px;
+
+  letter-spacing: 2px;
+
+  text-transform: uppercase;
+
+  color: rgba(52,62,71,.38);
+
+}
+
+
+.left .side-note {
+  left: 24px;
+}
+
+
+.right .side-note {
+  right: 24px;
+}
+
+
+.note-one {
+  top: 24%;
+}
+
+
+.note-two {
+  top: 65%;
+}
+
+
+.note-three {
+  bottom: 15%;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+header {
+
+  position: sticky;
+
+  top: 0;
+
+  z-index: 100;
+
+  background:
+    rgba(243,238,231,.82);
+
+  backdrop-filter: blur(18px);
+
+  -webkit-backdrop-filter: blur(18px);
+
+  border-bottom: 1px solid var(--line);
+
+}
+
+
+.header-inner {
+
+  height: 78px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+}
+
+
+.logo {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 13px;
+
+}
+
+
+.logo-mark {
+
+  width: 46px;
+
+  height: 38px;
+
+}
+
+
+.logo-text {
+
+  font-size: 1.45rem;
+
+  letter-spacing: -.5px;
+
+  font-weight: 600;
+
+}
+
+
+nav {
+
+  display: flex;
+
+  gap: 30px;
+
+}
+
+
+nav a {
+
+  position: relative;
+
+  text-decoration: none;
+
+  color: var(--muted);
+
+  font-size: .86rem;
+
+  letter-spacing: .4px;
+
+}
+
+
+nav a::after {
+
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+
+  bottom: -7px;
+
+  width: 100%;
+
+  height: 2px;
+
+  background: var(--coral);
+
+  transform: scaleX(0);
+
+  transform-origin: left;
+
+  transition: .25s ease;
+
+}
+
+
+nav a:hover {
+
+  color: var(--ink);
+
+}
+
+
+nav a:hover::after {
+
+  transform: scaleX(1);
+
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
+
+  min-height: 720px;
+
+  display: flex;
+
+  align-items: center;
+
+  padding: 100px 0 120px;
+
+}
+
+
+.hero-inner {
+
+  position: relative;
+
+}
+
+
+.hero-index {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  margin-bottom: 28px;
+
+  font-family: monospace;
+
+  font-size: .72rem;
+
+  letter-spacing: 2px;
+
+  color: var(--muted);
+
+}
+
+
+.hero-index-line {
+
+  width: 55px;
+
+  height: 1px;
+
+  background: var(--coral);
+
+}
+
+
+.hero h1 {
+
+  max-width: 900px;
+
+  font-size: clamp(3.5rem, 8vw, 7rem);
+
+  line-height: .92;
+
+  letter-spacing: -.065em;
+
+  font-weight: 500;
+
+}
+
+
+.hero h1 span {
+
+  color: var(--coral);
+
+}
+
+
+.hero-description {
+
+  max-width: 650px;
+
+  margin-top: 40px;
+
+  font-size: 1.08rem;
+
+  color: var(--muted);
+
+}
+
+
+.hero-meta {
+
+  margin-top: 55px;
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 10px;
+
+}
+
+
+.hero-tag {
+
+  border: 1px solid var(--line);
+
+  border-radius: 100px;
+
+  padding: 8px 14px;
+
+  font-size: .72rem;
+
+  letter-spacing: 1.2px;
+
+  text-transform: uppercase;
+
+  background: rgba(255,255,255,.35);
+
+}
+
+
+/* =========================================================
+   HERO SOUND GRAPHIC
+========================================================= */
+
+.hero-graphic {
+
+  position: absolute;
+
+  right: -30px;
+
+  bottom: -20px;
+
+  width: 330px;
+
+  height: 330px;
+
+  border-radius: 50%;
+
+  background: var(--dark);
+
+  overflow: hidden;
+
+  transform: rotate(-7deg);
+
+  box-shadow:
+    25px 25px 0 var(--mint);
+
+}
+
+
+.hero-graphic svg {
+
+  width: 100%;
+
+  height: 100%;
+
+}
+
+
+.hero-graphic-label {
+
+  position: absolute;
+
+  left: 25px;
+
+  bottom: 20px;
+
+  color: rgba(255,255,255,.65);
+
+  font-family: monospace;
+
+  font-size: 8px;
+
+  letter-spacing: 2px;
+
+}
+
+
+/* =========================================================
+   SECTION HEADERS
+========================================================= */
+
+.section-label {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 14px;
+
+  margin-bottom: 12px;
+
+  font-family: monospace;
+
+  font-size: .68rem;
+
+  letter-spacing: 2px;
+
+  text-transform: uppercase;
+
+  color: var(--muted);
+
+}
+
+
+.section-label::before {
+
+  content: "";
+
+  width: 32px;
+
+  height: 2px;
+
+  background: var(--coral);
+
+}
+
+
+.section-heading {
+
+  font-size: clamp(2rem, 4vw, 3.2rem);
+
+  line-height: 1;
+
+  letter-spacing: -.04em;
+
+  font-weight: 500;
+
+  margin-bottom: 50px;
+
+}
+
+
+/* =========================================================
+   PROJECTS
+========================================================= */
+
+.projects-grid {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, 1fr);
+
+  gap: 18px;
+
+}
+
+
+.project-card {
+
+  position: relative;
+
+  min-height: 300px;
+
+  padding: 34px;
+
+  overflow: hidden;
+
+  border-radius: 32px;
+
+  border: 1px solid var(--line);
+
+  text-decoration: none;
+
+  background:
+    rgba(255,255,255,.45);
+
+  transition:
+    transform .35s ease,
+    background .35s ease,
+    border-color .35s ease;
+
+}
+
+
+.project-card:nth-child(2) {
+
+  background: var(--dark);
+
+  color: white;
+
+}
+
+
+.project-card:nth-child(3) {
+
+  background: var(--mint);
+
+}
+
+
+.project-card:nth-child(4) {
+
+  background: var(--coral);
+
+}
+
+
+.project-card:hover {
+
+  transform: translateY(-7px) rotate(.3deg);
+
+  border-color: transparent;
+
+}
+
+
+.project-number {
+
+  position: absolute;
+
+  top: 25px;
+
+  right: 28px;
+
+  font-family: monospace;
+
+  font-size: .68rem;
+
+  letter-spacing: 2px;
+
+  opacity: .55;
+
+}
+
+
+.project-card h3 {
+
+  position: relative;
+
+  z-index: 2;
+
+  margin-top: 95px;
+
+  font-size: 1.7rem;
+
+  letter-spacing: -.03em;
+
+}
+
+
+.project-card p {
+
+  position: relative;
+
+  z-index: 2;
+
+  max-width: 390px;
+
+  margin-top: 12px;
+
+  color: var(--muted);
+
+}
+
+
+.project-card:nth-child(2) p {
+
+  color: rgba(255,255,255,.62);
+
+}
+
+
+.project-card:nth-child(3) p,
+.project-card:nth-child(4) p {
+
+  color: rgba(52,62,71,.72);
+
+}
+
+
+/* project waveform */
+
+.project-wave {
+
+  position: absolute;
+
+  left: -10px;
+
+  right: -10px;
+
+  top: 20px;
+
+  height: 100px;
+
+  opacity: .65;
+
+}
+
+
+.project-wave svg {
+
+  width: 100%;
+
+  height: 100%;
+
+}
+
+
+/* =========================================================
+   DARK STATEMENT
+========================================================= */
+
+.statement {
+
+  margin-top: 30px;
+
+  padding: 90px 8%;
+
+  border-radius: 38px;
+
+  background: var(--dark);
+
+  color: white;
+
+  position: relative;
+
+  overflow: hidden;
+
+}
+
+
+.statement::after {
+
+  content: "";
+
+  position: absolute;
+
+  width: 260px;
+
+  height: 260px;
+
+  right: -70px;
+
+  top: -70px;
+
+  border-radius: 50%;
+
+  border: 40px solid var(--coral);
+
+  opacity: .9;
+
+}
+
+
+.statement-small {
+
+  font-family: monospace;
+
+  font-size: .65rem;
+
+  letter-spacing: 2px;
+
+  color: var(--mint-bright);
+
+  margin-bottom: 25px;
+
+}
+
+
+.statement h2 {
+
+  max-width: 760px;
+
+  font-size: clamp(2.3rem, 5vw, 4.5rem);
+
+  line-height: .98;
+
+  letter-spacing: -.05em;
+
+  font-weight: 500;
+
+}
+
+
+.statement h2 span {
+
+  color: var(--coral-bright);
+
+}
+
+
+/* =========================================================
+   PRACTICE
+========================================================= */
+
+.practice-grid {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, 1fr);
+
+  gap: 20px;
+
+}
+
+
+/* =========================================================
+   FLIP CARDS
+========================================================= */
+
+.flip-card {
+
+  height: 390px;
+
+  perspective: 1400px;
+
+  cursor: pointer;
+
+}
+
+
+.flip-inner {
+
+  position: relative;
+
+  width: 100%;
+
+  height: 100%;
+
+  transform-style: preserve-3d;
+
+  transition:
+    transform .75s cubic-bezier(.2,.7,.2,1);
+
+}
+
+
+.flip-card.flipped .flip-inner {
+
+  transform: rotateY(180deg);
+
+}
+
+
+.flip-front,
+.flip-back {
+
+  position: absolute;
+
+  inset: 0;
+
+  border-radius: 30px;
+
+  overflow: hidden;
+
+  backface-visibility: hidden;
+
+  -webkit-backface-visibility: hidden;
+
+}
+
+
+/* FRONT */
+
+.flip-front {
+
+  padding: 30px;
+
+  background: var(--paper);
+
+  border: 1px solid var(--line);
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: space-between;
+
+}
+
+
+.flip-card:nth-child(2) .flip-front {
+
+  background: var(--mint);
+
+}
+
+
+.flip-card:nth-child(3) .flip-front {
+
+  background: var(--coral);
+
+}
+
+
+.flip-card:nth-child(4) .flip-front {
+
+  background: var(--dark);
+
+  color: white;
+
+}
+
+
+.card-number {
+
+  font-family: monospace;
+
+  font-size: .7rem;
+
+  letter-spacing: 2px;
+
+  opacity: .55;
+
+}
+
+
+.flip-front h3 {
+
+  font-size: 2rem;
+
+  line-height: 1;
+
+  max-width: 340px;
+
+  letter-spacing: -.04em;
+
+}
+
+
+.flip-front p {
+
+  max-width: 360px;
+
+  color: var(--muted);
+
+}
+
+
+.flip-card:nth-child(4) .flip-front p {
+
+  color: rgba(255,255,255,.62);
+
+}
+
+
+.flip-action {
+
+  align-self: flex-start;
+
+  border: 1px solid currentColor;
+
+  border-radius: 100px;
+
+  padding: 7px 13px;
+
+  font-family: monospace;
+
+  font-size: .62rem;
+
+  letter-spacing: 1px;
+
+  text-transform: uppercase;
+
+  opacity: .7;
+
+}
+
+
+/* BACK */
+
+.flip-back {
+
+  transform: rotateY(180deg);
+
+  background: var(--dark);
+
+  color: white;
+
+}
+
+
+.visual {
+
+  height: 205px;
+
+  background: #1e272e;
+
+  overflow: hidden;
+
+}
+
+
+.visual svg {
+
+  width: 100%;
+
+  height: 100%;
+
+}
+
+
+.back-content {
+
+  padding: 23px 27px;
+
+}
+
+
+.back-content h3 {
+
+  font-size: 1.2rem;
+
+  margin-bottom: 7px;
+
+}
+
+
+.back-content p {
+
+  font-size: .88rem;
+
+  line-height: 1.5;
+
+  color: rgba(255,255,255,.63);
+
+}
+
+
+.back-meta {
+
+  display: block;
+
+  margin-top: 12px;
+
+  font-family: monospace;
+
+  font-size: .6rem;
+
+  letter-spacing: 1.5px;
+
+  color: var(--mint-bright);
+
+  text-transform: uppercase;
+
+}
+
+
+.close-card {
+
+  position: absolute;
+
+  z-index: 5;
+
+  top: 16px;
+
+  right: 16px;
+
+  width: 32px;
+
+  height: 32px;
+
+  border: 1px solid rgba(255,255,255,.25);
+
+  border-radius: 50%;
+
+  background: rgba(39,49,57,.65);
+
+  color: white;
+
+  cursor: pointer;
+
+  font-size: 17px;
+
+}
+
+
+/* =========================================================
+   CONTACT
+========================================================= */
+
+.contact-section {
+
+  padding-bottom: 70px;
+
+}
+
+
+.contact {
+
+  position: relative;
+
+  padding: 55px;
+
+  border-radius: 36px;
+
+  background: var(--paper);
+
+  border: 1px solid var(--line);
+
+  overflow: hidden;
+
+}
+
+
+.contact::before {
+
+  content: "";
+
+  position: absolute;
+
+  width: 200px;
+
+  height: 200px;
+
+  right: -70px;
+
+  bottom: -70px;
+
+  border-radius: 50%;
+
+  background: var(--mint);
+
+}
+
+
+.contact p {
+
+  position: relative;
+
+  z-index: 2;
+
+  max-width: 700px;
+
+  font-size: 1.15rem;
+
+  color: var(--muted);
+
+}
+
+
+.contact-items {
+
+  position: relative;
+
+  z-index: 2;
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 10px;
+
+  margin-top: 30px;
+
+}
+
+
+.contact-item {
+
+  border: 1px solid var(--line);
+
+  border-radius: 100px;
+
+  padding: 10px 17px;
+
+  font-size: .82rem;
+
+  background: rgba(255,255,255,.5);
+
+  transition: .2s ease;
+
+}
+
+
+.contact-item:hover {
+
+  background: var(--dark);
+
+  color: white;
+
+  border-color: var(--dark);
+
+}
+
+
+.contact-item a {
+
+  text-decoration: none;
+
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer {
+
+  padding: 45px 0 65px;
+
+  text-align: center;
+
+  font-family: monospace;
+
+  font-size: .65rem;
+
+  letter-spacing: 1px;
+
+  color: var(--muted);
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 1000px) {
+
+  .side-system {
+
+    opacity: .3;
+
+  }
+
+
+  .hero-graphic {
+
+    right: 0;
+
+    width: 250px;
+
+    height: 250px;
+
+  }
+
+}
+
+
+@media (max-width: 760px) {
+
+  .container {
+
+    width: 88%;
+
+  }
+
+
+  section {
+
+    padding: 75px 0;
+
+  }
+
+
+  .header-inner {
+
+    height: 70px;
+
+  }
+
+
+  nav {
+
+    gap: 13px;
+
+  }
+
+
+  nav a {
+
+    font-size: .72rem;
+
+  }
+
+
+  .hero {
+
+    min-height: auto;
+
+    padding: 90px 0;
+
+  }
+
+
+  .hero h1 {
+
+    font-size: clamp(3rem, 15vw, 5rem);
+
+  }
+
+
+  .hero-graphic {
+
+    position: relative;
+
+    right: auto;
+
+    bottom: auto;
+
+    margin: 70px auto 0;
+
+    width: 230px;
+
+    height: 230px;
+
+  }
+
+
+  .projects-grid,
+  .practice-grid {
+
+    grid-template-columns: 1fr;
+
+  }
+
+
+  .project-card {
+
+    min-height: 270px;
+
+  }
+
+
+  .statement {
+
+    padding: 55px 30px;
+
+  }
+
+
+  .contact {
+
+    padding: 35px 25px;
+
+  }
+
+
+  .side-system {
+
+    display: none;
+
+  }
+
+}
+
+
+@media (max-width: 480px) {
+
+  .logo-text {
+
+    font-size: 1.25rem;
+
+  }
+
+
+  .logo-mark {
+
+    width: 38px;
+
+  }
+
+
+  nav {
+
+    gap: 9px;
+
+  }
+
+
+  nav a {
+
+    font-size: .66rem;
+
+  }
+
+
+  .hero h1 {
+
+    font-size: 3rem;
+
+  }
+
+
+  .hero-description {
+
+    font-size: 1rem;
+
+  }
+
+
+  .flip-card {
+
+    height: 350px;
+
+  }
+
+
+  .flip-front h3 {
+
+    font-size: 1.7rem;
+
+  }
+
+
+  .visual {
+
+    height: 175px;
+
+  }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     BACKGROUND
+===================================================== -->
+
+<div class="background-field">
+
+<svg viewBox="0 0 1600 1000"
+     preserveAspectRatio="none">
+
+  <path
+    d="M-100 180
+       C180 20 420 70 650 190
+       S1080 400 1700 130"
+    fill="none"
+    stroke="#a8c8c3"
+    stroke-width="1"/>
+
+  <path
+    d="M-100 470
+       C200 270 430 350 700 480
+       S1150 700 1700 420"
+    fill="none"
+    stroke="#e5a18c"
+    stroke-width="1"/>
+
+  <path
+    d="M-100 800
+       C250 600 480 700 760 810
+       S1250 960 1700 690"
+    fill="none"
+    stroke="#a8c8c3"
+    stroke-width="1"/>
+
+</svg>
+
+</div>
+
+
+<!-- =====================================================
+     LEFT SIDE SYSTEM
+===================================================== -->
+
+<div class="side-system left">
+
+  <div class="side-note note-one">
+    FIELD / 01
+  </div>
+
+  <div class="side-note note-two">
+    48KHZ / 24BIT
+  </div>
+
+  <div class="side-note note-three">
+    GENERATIVE
+  </div>
+
+
+  <svg viewBox="0 0 170 1000"
+       preserveAspectRatio="none">
+
+    <path
+      d="M35 0
+         C110 100 20 220 100 330
+         S30 550 95 670
+         S50 850 110 1000"
+      fill="none"
+      stroke="#a8c8c3"
+      stroke-width="1.2"/>
+
+    <path
+      d="M90 0
+         C20 120 140 250 60 390
+         S130 600 70 730
+         S130 880 65 1000"
+      fill="none"
+      stroke="#e5a18c"
+      stroke-width="1"/>
+
+    <circle
+      cx="70"
+      cy="300"
+      r="3"
+      fill="#e5a18c"/>
+
+    <circle
+      cx="105"
+      cy="660"
+      r="3"
+      fill="#a8c8c3"/>
+
+  </svg>
+
+</div>
+
+
+<!-- =====================================================
+     RIGHT SIDE SYSTEM
+===================================================== -->
+
+<div class="side-system right">
+
+  <div class="side-note note-one">
+    SPATIAL / 02
+  </div>
+
+  <div class="side-note note-two">
+    8 CHANNELS
+  </div>
+
+  <div class="side-note note-three">
+    DANTE
+  </div>
+
+
+  <svg viewBox="0 0 170 1000"
+       preserveAspectRatio="none">
+
+    <path
+      d="M135 0
+         C60 100 150 220 70 330
+         S140 550 75 670
+         S120 850 60 1000"
+      fill="none"
+      stroke="#a8c8c3"
+      stroke-width="1.2"/>
+
+    <path
+      d="M80 0
+         C150 120 30 250 110 390
+         S40 600 100 730
+         S40 880 105 1000"
+      fill="none"
+      stroke="#e5a18c"
+      stroke-width="1"/>
+
+    <circle
+      cx="100"
+      cy="240"
+      r="3"
+      fill="#a8c8c3"/>
+
+    <circle
+      cx="65"
+      cy="570"
+      r="3"
+      fill="#e5a18c"/>
+
+  </svg>
+
+</div>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header>
+
+<div class="container header-inner">
+
+  <a href="#top"
+     class="logo"
+     style="text-decoration:none;">
+
+    <svg
+      class="logo-mark"
+      viewBox="0 0 120 90">
+
+      <path
+        d="M15 20 C35 0 55 0 75 20 C90 35 105 35 115 15"
+        stroke="#A8C8C3"
+        stroke-width="10"
+        fill="none"
+        stroke-linecap="round"/>
+
+      <path
+        d="M15 45 C35 25 55 25 75 45 C90 60 105 60 115 40"
+        stroke="#E5A18C"
+        stroke-width="10"
+        fill="none"
+        stroke-linecap="round"/>
+
+      <path
+        d="M15 70 C35 50 55 50 75 70 C90 85 105 85 115 65"
+        stroke="#A8C8C3"
+        stroke-width="10"
+        fill="none"
+        stroke-linecap="round"/>
+
+    </svg>
+
+    <span class="logo-text">
+      EchoForma
+    </span>
+
+  </a>
+
+
+  <nav>
+
+    <a href="#projects">
+      Projects
+    </a>
+
+    <a href="#practice">
+      Practice
+    </a>
+
+    <a href="#contact">
+      Contact
+    </a>
+
+  </nav>
+
+</div>
+
+</header>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main id="top">
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="hero">
+
+<div class="container hero-inner">
+
+  <div class="hero-index">
+
+    <span class="hero-index-line"></span>
+
+    SOUND / SPACE / SYSTEM
+
+  </div>
+
+
+  <h1>
+
+    Generative<br>
+    <span>Soundscapes</span><br>
+    for Museums & Spaces
+
+  </h1>
+
+
+  <p class="hero-description">
+
+    EchoForma develops evolving audio environments
+    for museums, exhibitions, installations and
+    architectural spaces.
+
+    Combining generative composition, spatial audio
+    and exhibition design, each project becomes
+    a living acoustic layer of place and narrative.
+
+  </p>
+
+
+  <div class="hero-meta">
+
+    <span class="hero-tag">
+      Generative Audio
+    </span>
+
+    <span class="hero-tag">
+      Spatial Sound
+    </span>
+
+    <span class="hero-tag">
+      Museum Environments
+    </span>
+
+    <span class="hero-tag">
+      Research
+    </span>
+
+  </div>
+
+
+  <!-- HERO GENERATIVE GRAPHIC -->
+
+  <div class="hero-graphic">
+
+    <svg viewBox="0 0 330 330">
+
+      <circle
+        cx="165"
+        cy="165"
+        r="120"
+        fill="none"
+        stroke="#a8c8c3"
+        stroke-width="1"
+        opacity=".35"/>
+
+      <circle
+        cx="165"
+        cy="165"
+        r="85"
+        fill="none"
+        stroke="#e5a18c"
+        stroke-width="1"
+        opacity=".5"/>
+
+
+      <path
+        d="M20 168
+           C45 100 60 235 82 160
+           S120 90 142 166
+           S175 240 193 155
+           S225 80 246 168
+           S280 220 310 140"
+        fill="none"
+        stroke="#b9ddd7"
+        stroke-width="3"/>
+
+
+      <path
+        d="M30 190
+           C60 150 75 205 100 178
+           S140 125 160 185
+           S200 220 218 170
+           S250 120 300 185"
+        fill="none"
+        stroke="#f0b09a"
+        stroke-width="2"/>
+
+
+      <circle
+        cx="165"
+        cy="165"
+        r="5"
+        fill="#e8d27d"/>
+
+    </svg>
+
+
+    <div class="hero-graphic-label">
+      LIVE / NON-LOOPING / 01
+    </div>
+
+  </div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     PROJECTS
+===================================================== -->
+
+<section id="projects">
+
+<div class="container">
+
+  <div class="section-label">
+    01 / Selected Work
+  </div>
+
+  <h2 class="section-heading">
+    Soundscapes & Research
+  </h2>
+
+
+  <div class="projects-grid">
+
+
+    <!-- PATAGONIA -->
+
+    <a
+      class="project-card"
+      href="https://youtube.com/playlist?list=PLT4FqChDZLGeIpPWFKnuAYkGn1hmWWpE5&si=nP4h-wTW2Jw0UCen"
+      target="_blank"
+      rel="noopener noreferrer">
+
+      <div class="project-number">
+        01
+      </div>
+
+      <div class="project-wave">
+
+        <svg viewBox="0 0 600 100">
+
+          <path
+            d="M0 50
+               C40 5 70 90 110 48
+               S180 5 220 50
+               S290 95 330 45
+               S400 5 440 50
+               S520 95 600 35"
+            fill="none"
+            stroke="#a8c8c3"
+            stroke-width="3"/>
+
+        </svg>
+
+      </div>
+
+      <h3>
+        Patagonia
+      </h3>
+
+      <p>
+        Large-scale environmental soundscape inspired
+        by wind, distance, clouds and geological formations.
+      </p>
+
+    </a>
+
+
+    <!-- VAN GOGH -->
+
+    <a
+      class="project-card"
+      href="https://youtube.com/playlist?list=PLUvrOYZCvuT0&si=VFXSdi9z-XMY1HwG"
+      target="_blank"
+      rel="noopener noreferrer">
+
+      <div class="project-number">
+        02
+      </div>
+
+      <div class="project-wave">
+
+        <svg viewBox="0 0 600 100">
+
+          <path
+            d="M0 70
+               C60 10 100 100 150 35
+               S230 10 270 55
+               S340 100 390 30
+               S470 15 600 70"
+            fill="none"
+            stroke="#f0b09a"
+            stroke-width="3"/>
+
+        </svg>
+
+      </div>
+
+      <h3>
+        Van Gogh
+      </h3>
+
+      <p>
+        Generative audio interpretations of paintings
+        based on colour, composition and visual rhythm.
+      </p>
+
+    </a>
+
+
+    <!-- DOSTOEVSKY -->
+
+    <a
+      class="project-card"
+      href="https://youtube.com/playlist?list=PLT4FqChDZLGeBeeHIuAlMcYZLMKxEKX_9&si=0_u8eBPM6fdDxWsb"
+      target="_blank"
+      rel="noopener noreferrer">
+
+      <div class="project-number">
+        03
+      </div>
+
+      <div class="project-wave">
+
+        <svg viewBox="0 0 600 100">
+
+          <path
+            d="M0 50
+               C100 50 100 10 200 10
+               C300 10 300 90 400 90
+               C500 90 500 40 600 40"
+            fill="none"
+            stroke="#ffffff"
+            stroke-width="2"
+            opacity=".55"/>
+
+        </svg>
+
+      </div>
+
+      <h3>
+        Dostoevsky Museum
+      </h3>
+
+      <p>
+        Architectural sound environments supporting
+        narrative museum experiences.
+      </p>
+
+    </a>
+
+
+    <!-- ALULA -->
+
+    <a
+      class="project-card"
+      href="https://youtube.com/playlist?list=PLT4FqChDZLGcFRr5qrm7MlUtM0OiJBgv2&si=SndAZbT31vGhgHRP"
+      target="_blank"
+      rel="noopener noreferrer">
+
+      <div class="project-number">
+        04
+      </div>
+
+      <div class="project-wave">
+
+        <svg viewBox="0 0 600 100">
+
+          <path
+            d="M0 70
+               C80 80 100 20 170 40
+               S280 80 350 25
+               S470 15 600 65"
+            fill="none"
+            stroke="#343e47"
+            stroke-width="2"
+            opacity=".45"/>
+
+        </svg>
+
+      </div>
+
+      <h3>
+        AlUla
+      </h3>
+
+      <p>
+        Desert soundscape project translating landscape,
+        stone and atmosphere into evolving sonic structures.
+      </p>
+
+    </a>
+
+
+  </div>
+
+
+  <!-- STATEMENT -->
+
+  <div class="statement">
+
+    <div class="statement-small">
+      ECHOFORMA / PRINCIPLE 01
+    </div>
+
+    <h2>
+      The sound is never
+      <span>fixed.</span>
+    </h2>
+
+  </div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     PRACTICE
+===================================================== -->
+
+<section id="practice">
+
+<div class="container">
+
+  <div class="section-label">
+    02 / Creative Practice
+  </div>
+
+  <h2 class="section-heading">
+    What We Create
+  </h2>
+
+
+  <div class="practice-grid">
+
+
+    <!-- CARD 01 -->
+
+    <div class="flip-card">
+
+      <div class="flip-inner">
+
+
+        <div class="flip-front">
+
+          <span class="card-number">
+            01 / SOUND
+          </span>
+
+          <h3>
+            Generative
+            Soundscapes
+          </h3>
+
+          <p>
+            Non-looping audio environments
+            designed to evolve continuously
+            inside a space.
+          </p>
+
+          <span class="flip-action">
+            Explore →
+          </span>
+
+        </div>
+
+
+        <div class="flip-back">
+
+          <div class="visual">
+
+            <svg viewBox="0 0 600 250">
+
+              <rect
+                width="600"
+                height="250"
+                fill="#1e272e"/>
+
+              <g
+                fill="none"
+                stroke="#a8c8c3"
+                stroke-width="2">
+
+                <path
+                  d="M0 130
+                     C30 50 50 210 80 120
+                     S130 60 160 130
+                     S220 200 250 115
+                     S310 50 340 135
+                     S410 210 440 115
+                     S500 55 540 130
+                     S580 160 600 90"/>
+
+                <path
+                  d="M0 160
+                     C50 120 70 180 110 145
+                     S190 100 230 155
+                     S300 190 350 140
+                     S430 90 480 150
+                     S550 190 600 135"
+                  stroke="#e5a18c"
+                  opacity=".7"/>
+
+              </g>
+
+              <circle
+                cx="300"
+                cy="130"
+                r="4"
+                fill="#e8d27d"/>
+
+            </svg>
+
+          </div>
+
+
+          <button
+            class="close-card"
+            aria-label="Close">
+            ×
+          </button>
+
+
+          <div class="back-content">
+
+            <h3>
+              Generative Soundscapes
+            </h3>
+
+            <p>
+              Algorithmic environments that evolve
+              through changing parameters rather than
+              repeating a conventional audio loop.
+            </p>
+
+            <span class="back-meta">
+              Csound · Generative Audio · Installation
+            </span>
+
+          </div>
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+
+    <!-- CARD 02 -->
+
+    <div class="flip-card">
+
+      <div class="flip-inner">
+
+
+        <div class="flip-front">
+
+          <span class="card-number">
+            02 / ARTWORK
+          </span>
+
+          <h3>
+            Audio for
+            Artworks
+          </h3>
+
+          <p>
+            Sound interpretation and mobile
+            listening experiences for artworks,
+            collections and exhibitions.
+          </p>
+
+          <span class="flip-action">
+            Explore →
+          </span>
+
+        </div>
+
+
+        <div class="flip-back">
+
+          <div class="visual">
+
+            <svg viewBox="0 0 600 250">
+
+              <rect
+                width="600"
+                height="250"
+                fill="#253139"/>
+
+
+              <circle
+                cx="190"
+                cy="125"
+                r="72"
+                fill="#e5a18c"/>
+
+
+              <circle
+                cx="190"
+                cy="125"
+                r="45"
+                fill="#a8c8c3"/>
+
+
+              <circle
+                cx="190"
+                cy="125"
+                r="18"
+                fill="#253139"/>
+
+
+              <path
+                d="M330 70
+                   L520 70
+                   M330 105
+                   L480 105
+                   M330 140
+                   L510 140
+                   M330 175
+                   L440 175"
+                stroke="#b9ddd7"
+                stroke-width="4"
+                stroke-linecap="round"/>
+
+            </svg>
+
+          </div>
+
+
+          <button
+            class="close-card"
+            aria-label="Close">
+            ×
+          </button>
+
+
+          <div class="back-content">
+
+            <h3>
+              Audio for Artworks
+            </h3>
+
+            <p>
+              Individual sound experiences connecting
+              visual artworks with listening,
+              interpretation and visitor attention.
+            </p>
+
+            <span class="back-meta">
+              QR Audio · Interpretation · Mobile Listening
+            </span>
+
+          </div>
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+
+    <!-- CARD 03 -->
+
+    <div class="flip-card">
+
+      <div class="flip-inner">
+
+
+        <div class="flip-front">
+
+          <span class="card-number">
+            03 / SPACE
+          </span>
+
+          <h3>
+            Spatial
+            Audio
+          </h3>
+
+          <p>
+            Creative and technical concepts
+            for distributing sound through
+            architectural environments.
+          </p>
+
+          <span class="flip-action">
+            Explore →
+          </span>
+
+        </div>
+
+
+        <div class="flip-back">
+
+          <div class="visual">
+
+            <svg viewBox="0 0 600 250">
+
+              <rect
+                width="600"
+                height="250"
+                fill="#1e272e"/>
+
+
+              <rect
+                x="125"
+                y="45"
+                width="350"
+                height="160"
+                fill="none"
+                stroke="#a8c8c3"
+                stroke-width="2"/>
+
+
+              <circle
+                cx="165"
+                cy="85"
+                r="8"
+                fill="#e5a18c"/>
+
+              <circle
+                cx="435"
+                cy="85"
+                r="8"
+                fill="#e5a18c"/>
+
+              <circle
+                cx="165"
+                cy="165"
+                r="8"
+                fill="#e5a18c"/>
+
+              <circle
+                cx="435"
+                cy="165"
+                r="8"
+                fill="#e5a18c"/>
+
+
+              <circle
+                cx="300"
+                cy="125"
+                r="25"
+                fill="none"
+                stroke="#e8d27d"
+                stroke-width="2"/>
+
+
+              <path
+                d="M165 85
+                   Q300 125 435 85
+                   M165 165
+                   Q300 125 435 165"
+                fill="none"
+                stroke="#a8c8c3"
+                stroke-width="1"
+                opacity=".55"/>
+
+            </svg>
+
+          </div>
+
+
+          <button
+            class="close-card"
+            aria-label="Close">
+            ×
+          </button>
+
+
+          <div class="back-content">
+
+            <h3>
+              Spatial Audio
+            </h3>
+
+            <p>
+              Multichannel concepts connecting
+              sound distribution, architecture,
+              movement and visitor perception.
+            </p>
+
+            <span class="back-meta">
+              Multichannel · Dante · Spatial Systems
+            </span>
+
+          </div>
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+
+    <!-- CARD 04 -->
+
+    <div class="flip-card">
+
+      <div class="flip-inner">
+
+
+        <div class="flip-front">
+
+          <span class="card-number">
+            04 / RESEARCH
+          </span>
+
+          <h3>
+            Sound &
+            Research
+          </h3>
+
+          <p>
+            Interdisciplinary projects connecting
+            sound studies, culture and
+            digital technologies.
+          </p>
+
+          <span class="flip-action">
+            Explore →
+          </span>
+
+        </div>
+
+
+        <div class="flip-back">
+
+          <div class="visual">
+
+            <svg viewBox="0 0 600 250">
+
+              <rect
+                width="600"
+                height="250"
+                fill="#1e272e"/>
+
+
+              <g
+                stroke="#a8c8c3"
+                stroke-width="1">
+
+                <path d="M80 40 L80 210"/>
+                <path d="M160 40 L160 210"/>
+                <path d="M240 40 L240 210"/>
+                <path d="M320 40 L320 210"/>
+                <path d="M400 40 L400 210"/>
+                <path d="M480 40 L480 210"/>
+
+                <path d="M50 70 L550 70"/>
+                <path d="M50 125 L550 125"/>
+                <path d="M50 180 L550 180"/>
+
+              </g>
+
+
+              <path
+                d="M60 165
+                   C100 100 120 190 155 135
+                   S210 80 250 145
+                   S310 190 350 110
+                   S420 80 450 140
+                   S510 185 545 90"
+                fill="none"
+                stroke="#e5a18c"
+                stroke-width="4"/>
+
+
+              <circle
+                cx="250"
+                cy="145"
+                r="5"
+                fill="#e8d27d"/>
+
+            </svg>
+
+          </div>
+
+
+          <button
+            class="close-card"
+            aria-label="Close">
+            ×
+          </button>
+
+
+          <div class="back-content">
+
+            <h3>
+              Sound & Research
+            </h3>
+
+            <p>
+              Research into how sound structures
+              the experience of art, space,
+              technology and cultural memory.
+            </p>
+
+            <span class="back-meta">
+              Sound Studies · Art · Technology
+            </span>
+
+          </div>
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     CONTACT
+===================================================== -->
+
+<section id="contact"
+         class="contact-section">
+
+<div class="container">
+
+  <div class="section-label">
+    03 / Contact
+  </div>
+
+
+  <div class="contact">
+
+    <p>
+      EchoForma collaborates with museums,
+      galleries, curators, architects,
+      media-art studios and cultural institutions worldwide.
+    </p>
+
+
+    <div class="contact-items">
+
+      <div class="contact-item">
+        info@echoforma.com
+      </div>
+
+      <div class="contact-item">
+        projects@echoforma.com
+      </div>
+
+      <div class="contact-item">
+        support@echoforma.com
+      </div>
+
+      <div class="contact-item">
+
+        <a
+          href="https://www.youtube.com/@EchoForma_Soundscape"
+          target="_blank"
+          rel="noopener noreferrer">
+
+          YouTube
+
+        </a>
+
+      </div>
+
+      <div class="contact-item">
+
+        <a
+          href="https://www.instagram.com/echo_forma/"
+          target="_blank"
+          rel="noopener noreferrer">
+
+          Instagram
+
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+</section>
+
+
+</main>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+  ECHOFORMA · GENERATIVE SOUNDSCAPES · SPATIAL AUDIO · RESEARCH
+
+</footer>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+/*
+   Flip cards
+*/
+
+document
+  .querySelectorAll(".flip-card")
+  .forEach(card => {
+
+    card.addEventListener("click", function(event) {
+
+      if (
+        event.target.closest(".close-card")
+      ) {
+
+        card.classList.remove("flipped");
+
+        return;
+
+      }
+
+      card.classList.toggle("flipped");
+
+    });
+
+  });
+
+
+/*
+   Close buttons
+*/
+
+document
+  .querySelectorAll(".close-card")
+  .forEach(button => {
+
+    button.addEventListener("click", function(event) {
+
+      event.stopPropagation();
+
+    });
+
+  });
+
+
+/*
+   Close a card with Escape
+*/
+
+document.addEventListener("keydown", function(event) {
+
+  if (event.key === "Escape") {
+
+    document
+      .querySelectorAll(".flip-card.flipped")
+      .forEach(card => {
+
+        card.classList.remove("flipped");
+
+      });
+
+  }
+
+});
+
+</script>
+
+
+</body>
+
+</html>
