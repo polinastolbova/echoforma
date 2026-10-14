@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101313">
+<meta name="description" content="EchoForma — generative soundscapes for an exhibition on the history of musical synthesizers.">
+<title>The Magic of Sound — EchoForma</title>
+<style>
+:root {
+  --bg: #101313; --panel: #191e1d; --text: #eee9df; --muted: #a7aaa2;
+  --line: rgba(233,230,215,.16); --mint: #a9c9c6; --coral: #eaa18b;
+  --amber: #d7ad67; --blue: #7f9ef5; --max: 1220px;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+body {
+  margin: 0; color: var(--text); line-height: 1.6;
+  font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+  background: radial-gradient(ellipse at 78% 12%,rgba(74,107,101,.14),transparent 32rem),
+              radial-gradient(ellipse at 8% 42%,rgba(215,173,103,.06),transparent 28rem),var(--bg);
+}
+body::before {
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:5; opacity:.12;
+  background-image:radial-gradient(rgba(255,255,255,.28) .45px,transparent .6px); background-size:7px 7px;
+}
+a { color: inherit; }
+.top-line { height:3px; background:linear-gradient(90deg,var(--mint),var(--coral),var(--amber),var(--blue)); }
+.site-header,.hero,.section,.site-footer { width:min(var(--max),calc(100% - 64px)); margin-inline:auto; }
+.site-header { min-height:76px; display:flex; align-items:center; justify-content:space-between; gap:24px; border-bottom:1px solid var(--line); }
+.brand { display:inline-flex; align-items:center; gap:10px; color:var(--text); text-decoration:none; font-size:12px; font-weight:750; letter-spacing:.2em; text-transform:uppercase; white-space:nowrap; }
+.brand-mark { width:30px; height:24px; flex:none; }
+.brand-mark path { fill:none; stroke-width:4; stroke-linecap:round; }
+.brand-mark path:nth-child(1),.brand-mark path:nth-child(3) { stroke:var(--mint); }
+.brand-mark path:nth-child(2) { stroke:var(--coral); }
+.main-nav { display:flex; gap:clamp(16px,3vw,38px); }
+.main-nav a { color:var(--muted); font-size:10px; letter-spacing:.15em; text-decoration:none; text-transform:uppercase; }
+.main-nav a:hover { color:var(--mint); }
+.hero { min-height:620px; padding-block:76px 88px; display:grid; grid-template-columns:minmax(0,1.08fr) minmax(300px,.92fr); align-items:center; gap:clamp(42px,7vw,100px); }
+.eyebrow,.section-kicker { margin:0; color:var(--mint); font-size:10px; font-weight:700; letter-spacing:.23em; text-transform:uppercase; }
+.hero h1 { margin:23px 0 27px; font-size:clamp(54px,7.4vw,98px); font-weight:560; letter-spacing:-.075em; line-height:.95; }
+.hero h1 span { display:block; color:var(--mint); font-family:Georgia,"Times New Roman",serif; font-weight:400; font-style:italic; letter-spacing:-.065em; }
+.hero-lead { max-width:630px; margin:0; color:#d6d4ca; font-family:Georgia,"Times New Roman",serif; font-size:clamp(18px,2vw,23px); line-height:1.55; }
+.hero-support { max-width:580px; margin-top:23px; color:var(--muted); font-size:13px; }
+.hero-visual { position:relative; display:grid; place-items:center; min-height:390px; }
+.visual-orbit { position:absolute; width:min(100%,390px); aspect-ratio:1; border:1px solid rgba(169,201,198,.24); border-radius:50%; box-shadow:0 0 0 26px rgba(169,201,198,.025),0 0 0 54px rgba(169,201,198,.018); }
+.visual-orbit::before,.visual-orbit::after { content:""; position:absolute; border:1px solid rgba(234,161,139,.18); border-radius:50%; inset:12%; }
+.visual-orbit::after { inset:25%; border-color:rgba(127,158,245,.16); }
+.visual-core { position:relative; width:min(78%,285px); aspect-ratio:1; display:grid; place-items:center; border:1px solid rgba(169,201,198,.25); border-radius:50%; background:radial-gradient(circle,rgba(47,68,64,.52),rgba(16,19,19,.2) 70%); }
+.synth-wave { width:85%; overflow:visible; }
+.wave-base { fill:none; stroke:var(--mint); stroke-width:1.8; stroke-linecap:round; }
+.wave-detail { fill:none; stroke:var(--coral); stroke-width:1.4; stroke-linecap:round; opacity:.9; }
+.visual-caption { position:absolute; right:0; bottom:0; width:190px; padding-left:16px; border-left:1px solid var(--amber); }
+.visual-caption strong { display:block; font-family:Georgia,"Times New Roman",serif; font-size:16px; font-weight:400; }
+.visual-caption span { display:block; margin-top:4px; color:var(--muted); font-size:9px; letter-spacing:.12em; line-height:1.7; text-transform:uppercase; }
+.rule { height:1px; background:var(--line); }
+.section { padding-block:88px; }
+.section-heading { display:grid; grid-template-columns:minmax(200px,.8fr) minmax(0,1.2fr); gap:60px; align-items:start; margin-bottom:45px; }
+.section-heading h2 { margin:12px 0 0; font-size:clamp(34px,4.5vw,54px); font-weight:450; letter-spacing:-.06em; line-height:1.05; }
+.section-heading>p { max-width:690px; margin:0; color:var(--muted); font-size:14px; }
+.principles { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1px; background:var(--line); border:1px solid var(--line); }
+.principle { min-height:185px; padding:25px; background:var(--panel); }
+.principle-index { color:var(--coral); font-size:10px; letter-spacing:.16em; }
+.principle h3 { margin:26px 0 8px; font-family:Georgia,"Times New Roman",serif; font-size:22px; font-weight:400; }
+.principle p { margin:0; color:var(--muted); font-size:12px; }
+.works-section { padding-top:28px; }
+.works-intro { display:flex; justify-content:space-between; align-items:end; gap:24px; margin-bottom:29px; }
+.works-intro h2 { margin:10px 0 0; font-size:clamp(35px,4vw,50px); font-weight:450; letter-spacing:-.06em; line-height:1; }
+.works-count { color:var(--muted); font-size:10px; letter-spacing:.14em; text-transform:uppercase; white-space:nowrap; }
+.track-list { display:grid; gap:15px; }
+.track-card { display:grid; grid-template-columns:minmax(230px,.82fr) minmax(0,1.18fr); min-height:245px; overflow:hidden; border:1px solid rgba(238,233,223,.12); background:linear-gradient(110deg,rgba(28,34,33,.96),rgba(21,25,25,.96)); }
+.track-art { position:relative; min-height:245px; overflow:hidden; background:#090b0b; }
+.track-art img { display:block; width:100%; height:100%; min-height:245px; object-fit:cover; transition:transform 500ms ease,filter 500ms ease; }
+.track-card:hover .track-art img { transform:scale(1.035); filter:saturate(1.08); }
+.track-art::after { content:""; position:absolute; inset:45% 0 0; background:linear-gradient(transparent,rgba(8,10,10,.5)); pointer-events:none; }
+.track-number { position:absolute; z-index:1; left:17px; bottom:13px; color:#fff; font-size:10px; letter-spacing:.17em; }
+.track-body { display:flex; flex-direction:column; align-items:flex-start; padding:clamp(22px,3.5vw,38px); }
+.track-era { margin:0; color:var(--mint); font-size:9px; letter-spacing:.16em; text-transform:uppercase; }
+.track-body h3 { margin:11px 0 10px; font-family:Georgia,"Times New Roman",serif; font-size:clamp(25px,3vw,35px); font-weight:400; letter-spacing:-.035em; line-height:1.12; }
+.track-description { max-width:590px; margin:0; color:#b6b8b0; font-size:12px; line-height:1.7; }
+.tags { display:flex; flex-wrap:wrap; gap:7px; margin-top:19px; }
+.tag { padding:5px 9px; border:1px solid rgba(169,201,198,.2); border-radius:99px; color:#c3d3cf; font-size:9px; }
+.listen-link { display:inline-flex; align-items:center; gap:10px; margin-top:auto; padding-top:22px; color:var(--text); font-size:10px; letter-spacing:.1em; text-decoration:none; text-transform:uppercase; }
+.play-icon { width:29px; height:29px; display:grid; place-items:center; border:1px solid rgba(169,201,198,.4); border-radius:50%; color:var(--mint); font-size:9px; }
+.listen-link:hover .play-icon { background:var(--mint); color:var(--bg); }
+.arrow { margin-left:5px; color:var(--coral); font-size:16px; }
+.system-section { padding-top:40px; }
+.system-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:15px; }
+.system-card { padding:28px; border:1px solid var(--line); background:rgba(23,27,27,.75); }
+.system-card h3 { margin:0 0 12px; color:var(--amber); font-size:11px; font-weight:650; letter-spacing:.14em; text-transform:uppercase; }
+.system-card p,.system-card li { color:var(--muted); font-size:12px; }
+.system-card p { margin:0; }
+.system-card ul { display:grid; gap:8px; margin:15px 0 0; padding-left:18px; }
+.statement { padding:76px 0 85px; border-top:1px solid var(--line); text-align:center; }
+.statement p { max-width:850px; margin:0 auto; font-family:Georgia,"Times New Roman",serif; font-size:clamp(29px,4.8vw,53px); letter-spacing:-.045em; line-height:1.2; }
+.statement em { color:var(--mint); font-weight:400; }
+.site-footer { display:flex; justify-content:space-between; gap:20px; padding-block:24px 30px; border-top:1px solid var(--line); color:var(--muted); font-size:9px; letter-spacing:.1em; text-transform:uppercase; }
+@media (max-width:820px) {
+  .site-header,.hero,.section,.site-footer { width:min(100% - 40px,var(--max)); }
+  .hero { min-height:auto; grid-template-columns:1fr; padding-block:65px 80px; gap:35px; }
+  .hero-visual { min-height:360px; }
+  .section-heading { grid-template-columns:1fr; gap:20px; }
+  .track-card { grid-template-columns:.8fr 1.2fr; }
+  .track-art,.track-art img { min-height:100%; }
+}
+@media (max-width:600px) {
+  .site-header { min-height:68px; }
+  .brand { gap:7px; font-size:10px; }
+  .brand-mark { width:25px; }
+  .main-nav { gap:12px; }
+  .main-nav a { font-size:8px; letter-spacing:.08em; }
+  .hero { padding-top:48px; }
+  .hero h1 { font-size:clamp(49px,14vw,72px); }
+  .hero-visual { min-height:320px; }
+  .visual-orbit { width:min(78vw,320px); }
+  .visual-core { width:min(61vw,245px); }
+  .visual-caption { right:0; bottom:-6px; width:155px; }
+  .section { padding-block:60px; }
+  .principles,.system-grid { grid-template-columns:1fr; }
+  .principle { min-height:150px; }
+  .principle h3 { margin-top:18px; }
+  .works-intro { align-items:flex-start; flex-direction:column; }
+  .track-card { grid-template-columns:1fr; }
+  .track-art,.track-art img { min-height:220px; max-height:260px; }
+  .track-body { padding:23px; }
+  .track-body h3 { font-size:29px; }
+  .listen-link { margin-top:20px; }
+  .site-footer { flex-direction:column; gap:9px; }
+}
+@media (prefers-reduced-motion:reduce) {
+  html { scroll-behavior:auto; }
+  *,*::before,*::after { transition-duration:.01ms !important; }
+}
+</style>
+</head>
+<body>
+<div class="top-line"></div>
+<header class="site-header" id="top">
+  <a class="brand" href="#top" aria-label="EchoForma home">
+    <svg class="brand-mark" viewBox="0 0 44 34" aria-hidden="true">
+      <path d="M3 8 C10 2,16 2,23 8 S36 14,41 8"></path>
+      <path d="M3 17 C10 11,16 11,23 17 S36 23,41 17"></path>
+      <path d="M3 26 C10 20,16 20,23 26 S36 32,41 26"></path>
+    </svg>
+    <span>EchoForma</span>
+  </a>
+  <nav class="main-nav" aria-label="Main navigation">
+    <a href="#about">About</a><a href="#soundscapes">Soundscapes</a><a href="#approach">Approach</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-copy">
+      <p class="eyebrow">EchoForma · Virtual sound exhibition</p>
+      <h1 id="hero-title">The Magic<br><span>of Sound</span></h1>
+      <p class="hero-lead">The history of musical synthesizers, explored through sound, atmosphere and the evolving language of electronic instruments.</p>
+      <p class="hero-support">From the uncanny voice of the theremin to electric keys, tonewheel organs and digital synthesis, each soundscape offers a different way to listen to the technologies that changed music.</p>
+    </div>
+    <div class="hero-visual" aria-label="Abstract generative sound visual">
+      <div class="visual-orbit"></div>
+      <div class="visual-core">
+        <svg class="synth-wave" viewBox="0 0 300 200" aria-hidden="true">
+          <path class="wave-detail" d="M18 105 C32 105 32 88 46 88 S60 123 74 123 S88 105 102 105 S116 71 130 71 S144 138 158 138 S172 95 186 95 S200 115 214 115 S228 81 242 81 S256 105 282 105"></path>
+          <path class="wave-base" d="M18 100 C28 100 30 92 38 100 S48 116 58 100 S68 70 78 100 S88 132 98 100 S108 48 118 100 S128 151 138 100 S148 63 158 100 S168 126 178 100 S188 82 198 100 S208 120 218 100 S228 57 238 100 S248 136 258 100 S270 91 282 100"></path>
+          <path class="wave-detail" d="M18 145 C48 145 48 139 78 139 S108 151 138 151 S168 141 198 141 S228 149 258 149 S272 145 282 145"></path>
+        </svg>
+      </div>
+      <div class="visual-caption"><strong>Five soundscapes</strong><span>One history, interpreted<br>through electronic sound</span></div>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <section class="section" id="about">
+    <div class="section-heading">
+      <div><p class="section-kicker">The exhibition</p><h2>Instruments as<br>living systems.</h2></div>
+      <p>The project develops the architecture of a multimedia environment dedicated to the history and phenomenology of musical synthesizers. Rather than presenting sound as a fixed recording, it treats electronic sound as a process: continuous, variable and responsive to its surroundings.</p>
+    </div>
+    <div class="principles">
+      <article class="principle"><span class="principle-index">01 / SOUND</span><h3>Generative by nature</h3><p>Code-based sound generation creates evolving material without relying on pre-prepared audio files.</p></article>
+      <article class="principle"><span class="principle-index">02 / SPACE</span><h3>Immersive environment</h3><p>Sound and projection form a continuous landscape adapted to the architecture of each exhibition room.</p></article>
+      <article class="principle"><span class="principle-index">03 / TIME</span><h3>Always in motion</h3><p>Modulation, filtering, noise and changing parameters make each moment distinct rather than repeating a fixed cycle.</p></article>
+    </div>
+  </section>
+
+  <section class="section works-section" id="soundscapes">
+    <div class="works-intro"><div><p class="section-kicker">Listen to the exhibition</p><h2>Five soundscapes</h2></div><span class="works-count">01—05 / Selected works</span></div>
+    <div class="track-list">
+
+      <article class="track-card">
+        <div class="track-art">
+          <img src="data:image/jpeg;base64,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3XA5BUOiXGXitn6buJK/3mr1Df6m818neVdU8yzPxjc8nJKi1crT1W4zXEVu28iIioEREBERAREQECK4IKYVcLIG5HRNvKM2QxOkk2gKTpbd7eC3J9Fks1M2W4MYXDB4UnVN8LXvYxwODhccs75aVcb47ak9IYqOTDQOFzZ6qduFVL3RbkkFQW056FdJ8oxl91FlpwXTBoxn3rHgjyRrnMeHNOCFSm86BwOSAT7likhdngKzxc/4/wAlfHUvLxvOVGrGVa6ne2PcQqU8Lp5wweZwpKomY6j464WjQTCGvicegcM/1S703HthljMU74z1acLEeq2q5zX3Gd7ehcSF699Fbwf8UVl7/u/G+FrfqzvNu3xvhZe4+1xnfjb/AHtqrCWy2+0t+eJvU+b1PlmV8f8Af7j+Xi6L6u7ZLfq+qpdNu1HoymveoYdG2z97LjeCWV1rca94jfJK6RrY5Xt7pjnSBx2nnHJXpHbJH2vanv2nLhp7UvaToLUN81XJZKLTtbfGOY2mdE17qulfTbSKduMO9qRp4IccK7jeJjzd2fHGUx3v5222SeV4mpf+4+Wr8ydvglF6z9I3X41/26VklJdKu52myQR2K3VlXO6eWohpwWmZ8jiS90j98hcTk7wvJlzwymU8p1+PZWeNxur3+fef0vmaGVMjGjADiAPmrERUkREQFexERl6bLQMK09URK449pnT4H1iw481tXPi5SEeqIvNfvez9tHVJJYMrAWMLBloRFefblGnKAHcBYHIi6Y9C1XNRFtZWyCTHgla54dwiLIRQknJKtRFTRERAUpR0dPLRskkjy45ycn1REH//2Q==" alt="The Theremin exhibition installation">
+          <span class="track-number">01</span>
+        </div>
+        <div class="track-body">
+          <p class="track-era">Gesture · electromagnetic sound</p>
+          <h3>The Theremin</h3>
+          <p class="track-description">An instrument played without physical contact becomes a study in movement, pitch and expression.</p>
+          <div class="tags"><span class="tag">Continuous tone</span>
+<span class="tag">Pitch movement</span>
+<span class="tag">Spatial presence</span></div>
+          <a class="listen-link" href="https://youtu.be/JTjESENPYvk?si=teCOJ7B7RgPVgiGE" target="_blank" rel="noopener noreferrer">
+            <span class="play-icon" aria-hidden="true">▶</span> Listen to the soundscape <span class="arrow">↗</span>
+          </a>
+        </div>
+      </article>
+
+
+      <article class="track-card">
+        <div class="track-art">
+          <img src="data:image/jpeg;base64,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" alt="Electric piano Rhodes exhibition installation">
+          <span class="track-number">02</span>
+        </div>
+        <div class="track-body">
+          <p class="track-era">Electric keys · resonance</p>
+          <h3>Electric piano Rhodes</h3>
+          <p class="track-description">A generative interpretation of the Rhodes electric piano, exploring warm resonance through evolving electronic textures.</p>
+          <div class="tags"><span class="tag">Resonance</span>
+<span class="tag">Warm harmonics</span>
+<span class="tag">Slow variation</span></div>
+          <a class="listen-link" href="https://youtu.be/_PUWZaU3B1w?si=Mdk6kyWQb02FpGkj" target="_blank" rel="noopener noreferrer">
+            <span class="play-icon" aria-hidden="true">▶</span> Listen to the soundscape <span class="arrow">↗</span>
+          </a>
+        </div>
+      </article>
+
+
+      <article class="track-card">
+        <div class="track-art">
+          <img src="data:image/jpeg;base64,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" alt="Musical synthesizers exhibition installation">
+          <span class="track-number">03</span>
+        </div>
+        <div class="track-body">
+          <p class="track-era">Oscillators · modulation</p>
+          <h3>Musical synthesizers</h3>
+          <p class="track-description">Oscillators, noise, spectral movement and modulation combine into a continuously changing electronic field.</p>
+          <div class="tags"><span class="tag">Oscillators</span>
+<span class="tag">Noise</span>
+<span class="tag">Modulation</span></div>
+          <a class="listen-link" href="https://youtu.be/Q7fZrITidVg?si=6u_WLeqI2mHxAXP2" target="_blank" rel="noopener noreferrer">
+            <span class="play-icon" aria-hidden="true">▶</span> Listen to the soundscape <span class="arrow">↗</span>
+          </a>
+        </div>
+      </article>
+
+
+      <article class="track-card">
+        <div class="track-art">
+          <img src="data:image/jpeg;base64,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" alt="The Hammond organ exhibition installation">
+          <span class="track-number">04</span>
+        </div>
+        <div class="track-body">
+          <p class="track-era">Tonewheels · layered harmonics</p>
+          <h3>The Hammond organ</h3>
+          <p class="track-description">An exploration of the Hammond organ through layered tones and shifting harmonic colour.</p>
+          <div class="tags"><span class="tag">Harmonic layers</span>
+<span class="tag">Tone colour</span>
+<span class="tag">Sustained sound</span></div>
+          <a class="listen-link" href="https://youtu.be/TXBxWEXgMLM?si=XBmnOAv5KYVu76QF" target="_blank" rel="noopener noreferrer">
+            <span class="play-icon" aria-hidden="true">▶</span> Listen to the soundscape <span class="arrow">↗</span>
+          </a>
+        </div>
+      </article>
+
+
+      <article class="track-card">
+        <div class="track-art">
+          <img src="data:image/jpeg;base64,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" alt="Soviet electronic music exhibition installation">
+          <span class="track-number">05</span>
+        </div>
+        <div class="track-body">
+          <p class="track-era">Electronic history · experimentation</p>
+          <h3>Soviet electronic music</h3>
+          <p class="track-description">A soundscape inspired by the experimental electronic sound world developed around Soviet-era instruments and studios.</p>
+          <div class="tags"><span class="tag">Electronic timbres</span>
+<span class="tag">Texture</span>
+<span class="tag">Experiment</span></div>
+          <a class="listen-link" href="https://youtu.be/Shj3Bbl6B1s?si=pm0iQobIYJAm0FXH" target="_blank" rel="noopener noreferrer">
+            <span class="play-icon" aria-hidden="true">▶</span> Listen to the soundscape <span class="arrow">↗</span>
+          </a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <section class="section system-section" id="approach">
+    <div class="section-heading">
+      <div><p class="section-kicker">System architecture</p><h2>A connected<br>multimedia space.</h2></div>
+      <p>The exhibition concept combines generative audio, real-time visual synthesis and a centralized control structure. Each room can develop its own sonic and visual identity while remaining part of one coordinated environment.</p>
+    </div>
+    <div class="system-grid">
+      <article class="system-card"><h3>01 / Generative audio</h3><p>Csound is the sound-generation environment. Each room can use its own system of oscillators, noise generators, spectral modulation and algorithmic processes.</p><ul><li>Real-time sound generation</li><li>Amplitude variation and timbral filtering</li><li>Delay, feedback and spatial depth</li><li>Continuous material with high variability</li></ul></article>
+      <article class="system-card"><h3>02 / Real-time visuals</h3><p>TouchDesigner creates visuals that respond to the nature and parameters of the sound rather than relying on pre-rendered video.</p><ul><li>Waveforms and spectral clouds</li><li>Modulation structures and abstract interfaces</li><li>Sound-to-visual synchronization via OSC/UDP</li><li>Adaptation to the visual scenario of each room</li></ul></article>
+      <article class="system-card"><h3>03 / Spatial audio</h3><p>The sound environment is designed to feel continuous and immersive, without drawing attention to isolated playback points.</p><ul><li>Acoustic environment shaped around each room</li><li>Movement and depth controlled through parameters</li><li>Sound levels and timbre adapted to the space</li></ul></article>
+      <article class="system-card"><h3>04 / Integrated control</h3><p>Audio, DSP, visualization and the AV control layer are conceived as components of a single coordinated system.</p><ul><li>Parameter exchange between system components</li><li>Synchronous audio and visual operation</li><li>Centralized control of the multimedia environment</li></ul></article>
+    </div>
+  </section>
+
+  <section class="statement"><p>Not simply a history of instruments, but an invitation to experience electronic sound as a <em>living, changing space.</em></p></section>
+</main>
+
+<footer class="site-footer"><span>© EchoForma · The Magic of Sound</span><span>Generative audio · Real-time media · Listening as exploration</span></footer>
+</body>
+</html>
