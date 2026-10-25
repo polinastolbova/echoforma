@@ -1,0 +1,805 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f5f1eb">
+<meta name="description" content="Explore EchoForma's generative soundscape projects, from Patagonia and Van Gogh to Armenia and prehistoric sound worlds.">
+<title>Projects — EchoForma</title>
+
+<style>
+:root {
+  --bg: #f5f1eb;
+  --paper: #fbf9f5;
+  --ink: #303a43;
+  --muted: #7f878b;
+  --dark: #28333b;
+  --mint: #a8c4c1;
+  --coral: #e4a18b;
+  --yellow: #e9c86c;
+  --line: #e2dad2;
+  --sans: Inter, "Helvetica Neue", Arial, sans-serif;
+  --mono: "SFMono-Regular", Consolas, monospace;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::selection {
+  background: var(--mint);
+  color: var(--dark);
+}
+
+/* Header */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  min-height: 82px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 16px max(5.5vw, 24px);
+  background: rgba(245, 241, 235, .94);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(16px);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 13px;
+  font-size: 27px;
+  letter-spacing: -.055em;
+  font-weight: 550;
+}
+
+.brand-mark {
+  width: 48px;
+  height: 34px;
+  flex: none;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(20px, 3vw, 48px);
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.nav a {
+  transition: color .2s;
+}
+
+.nav a:hover,
+.nav a:focus-visible {
+  color: var(--ink);
+}
+
+.nav .nav-contact {
+  color: var(--ink);
+  border-bottom: 1px solid var(--coral);
+  padding-bottom: 5px;
+}
+
+/* Page introduction */
+
+.page-intro {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 105px max(9vw, 56px) 85px;
+  border-bottom: 1px solid var(--line);
+}
+
+.page-intro::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 80% 25%,
+      rgba(168,196,193,.27), transparent 38%),
+    radial-gradient(ellipse at 20% 100%,
+      rgba(228,161,139,.16), transparent 40%);
+}
+
+.intro-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  color: var(--muted);
+  font: 11px var(--mono);
+  letter-spacing: .22em;
+  text-transform: uppercase;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 53px;
+  height: 1px;
+  background: var(--coral);
+}
+
+h1 {
+  margin: 42px 0 25px;
+  font-size: clamp(60px, 10vw, 132px);
+  line-height: .88;
+  letter-spacing: -.085em;
+  font-weight: 520;
+}
+
+h1 span {
+  color: var(--coral);
+}
+
+.intro-copy {
+  max-width: 490px;
+  color: #667178;
+  font-size: 16px;
+  line-height: 1.75;
+}
+
+/* Project grid */
+
+.projects-section {
+  padding: 85px max(9vw, 56px) 120px;
+}
+
+.section-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 25px;
+  margin-bottom: 45px;
+}
+
+.section-index {
+  color: var(--coral);
+  font: 10px var(--mono);
+  letter-spacing: .2em;
+  margin-bottom: 17px;
+}
+
+h2 {
+  margin: 0;
+  font-size: clamp(38px, 5.2vw, 68px);
+  line-height: .98;
+  letter-spacing: -.065em;
+  font-weight: 520;
+}
+
+.section-intro {
+  max-width: 310px;
+  margin: 0 0 4px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1.08fr .92fr;
+  gap: 20px;
+}
+
+.project {
+  min-width: 0;
+  min-height: 340px;
+  padding: 28px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  isolation: isolate;
+  border: 1px solid rgba(48,58,67,.08);
+  transition: transform .35s, box-shadow .35s;
+}
+
+.project:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 45px rgba(48,58,67,.09);
+}
+
+.project:nth-child(1) { background: #dbe5df; }
+.project:nth-child(2) { background: #ead4c8; min-height: 370px; }
+.project:nth-child(3) { background: #d9d9d1; min-height: 370px; }
+.project:nth-child(4) { background: #e8dcb9; }
+.project:nth-child(5) { background: #d7e1d9; min-height: 370px; }
+.project:nth-child(6) { background: #e5d9ca; min-height: 370px; }
+
+.project-top,
+.project-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  position: relative;
+  z-index: 2;
+}
+
+.project-top {
+  align-items: flex-start;
+}
+
+.project-number {
+  flex: none;
+  font: 10px var(--mono);
+  letter-spacing: .16em;
+  color: rgba(48,58,67,.65);
+}
+
+.project-tag {
+  max-width: 70%;
+  text-align: right;
+  font: 9px/1.6 var(--mono);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: rgba(48,58,67,.7);
+}
+
+.project h3 {
+  position: relative;
+  z-index: 2;
+  font-size: clamp(32px, 4vw, 55px);
+  line-height: .95;
+  letter-spacing: -.065em;
+  font-weight: 520;
+  margin: 0;
+  max-width: 100%;
+}
+
+.project-art {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: .7;
+  pointer-events: none;
+}
+
+.project-link {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 9px;
+  font: 10px var(--mono);
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+
+.project-link span {
+  display: inline-grid;
+  place-items: center;
+  width: 29px;
+  height: 29px;
+  border: 1px solid rgba(48,58,67,.4);
+  border-radius: 50%;
+  transition: background .2s, transform .2s;
+}
+
+.project-link:hover span {
+  background: var(--ink);
+  color: var(--bg);
+  transform: rotate(45deg);
+}
+
+.project-description {
+  max-width: 340px;
+  margin: 12px 0 0;
+  font-size: 11px;
+  line-height: 1.55;
+  color: rgba(48,58,67,.72);
+  position: relative;
+  z-index: 2;
+}
+
+/* Closing section */
+
+.closing {
+  position: relative;
+  overflow: hidden;
+  padding: 95px max(9vw, 56px);
+  background: var(--dark);
+  color: var(--bg);
+}
+
+.closing-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.closing::before,
+.closing::after {
+  content: "";
+  position: absolute;
+  border: 1px solid rgba(168,196,193,.22);
+  border-radius: 50%;
+  width: 65vw;
+  height: 65vw;
+  min-width: 450px;
+  min-height: 450px;
+  pointer-events: none;
+}
+
+.closing::before {
+  top: -45vw;
+  right: -20vw;
+}
+
+.closing::after {
+  bottom: -55vw;
+  left: -22vw;
+  border-color: rgba(228,161,139,.3);
+}
+
+.closing h2 {
+  max-width: 820px;
+  margin: 35px 0 25px;
+  font-size: clamp(40px, 6.5vw, 82px);
+}
+
+.closing h2 em {
+  color: var(--mint);
+  font-family: Georgia, serif;
+  font-weight: 400;
+}
+
+.closing-copy {
+  max-width: 460px;
+  color: #b5bdbe;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 25px;
+  padding-bottom: 7px;
+  border-bottom: 1px solid var(--coral);
+  font: 10px var(--mono);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.back-link span {
+  transition: transform .2s;
+}
+
+.back-link:hover span {
+  transform: translateX(-4px);
+}
+
+/* Footer */
+
+footer {
+  padding: 22px max(5.5vw, 24px);
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  color: #969c9d;
+  font: 9px var(--mono);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.footer-mark {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ink);
+}
+
+.footer-mark svg {
+  width: 23px;
+  height: 17px;
+}
+
+/* Responsive */
+
+@media (max-width: 900px) {
+  .page-intro,
+  .projects-section,
+  .closing {
+    padding-left: 7vw;
+    padding-right: 7vw;
+  }
+
+  .project {
+    padding: 23px;
+  }
+
+  .project h3 {
+    font-size: clamp(30px, 4.5vw, 46px);
+  }
+}
+
+@media (max-width: 620px) {
+  .site-header {
+    min-height: 70px;
+    padding: 14px 22px;
+  }
+
+  .brand {
+    font-size: 23px;
+    gap: 9px;
+  }
+
+  .brand-mark {
+    width: 40px;
+  }
+
+  .nav {
+    gap: 13px;
+    font-size: 11px;
+  }
+
+  .nav a:not(.nav-contact) {
+    display: none;
+  }
+
+  .page-intro {
+    padding: 80px 24px 60px;
+  }
+
+  h1 {
+    font-size: clamp(58px, 15vw, 88px);
+    margin-top: 36px;
+  }
+
+  .intro-copy {
+    font-size: 14px;
+  }
+
+  .projects-section {
+    padding: 65px 24px 80px;
+  }
+
+  .section-heading {
+    display: block;
+    margin-bottom: 30px;
+  }
+
+  .section-intro {
+    margin-top: 15px;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+    gap: 13px;
+  }
+
+  .project,
+  .project:nth-child(n) {
+    min-height: 285px;
+    padding: 22px;
+  }
+
+  .project h3 {
+    font-size: 43px;
+  }
+
+  .project-tag {
+    font-size: 8px;
+  }
+
+  .project-description {
+    max-width: 230px;
+    font-size: 10px;
+  }
+
+  .closing {
+    padding: 75px 24px;
+  }
+
+  footer {
+    padding: 20px 24px;
+    flex-wrap: wrap;
+    font-size: 8px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    transition-duration: .01ms !important;
+  }
+}
+</style>
+</head>
+
+<body id="top">
+
+<header class="site-header">
+  <a class="brand" href="https://polinastolbova.github.io/echoforma/"
+     aria-label="EchoForma home">
+    <svg class="brand-mark" viewBox="0 0 54 38" fill="none"
+         aria-hidden="true">
+      <path d="M2 8C11 1 19 1 28 8s17 7 24 0"
+            stroke="#a8c4c1" stroke-width="6" stroke-linecap="round"/>
+      <path d="M2 19C11 12 19 12 28 19s17 7 24 0"
+            stroke="#e4a18b" stroke-width="6" stroke-linecap="round"/>
+      <path d="M2 30C11 23 19 23 28 30s17 7 24 0"
+            stroke="#a8c4c1" stroke-width="6" stroke-linecap="round"/>
+    </svg>
+    <span>EchoForma</span>
+  </a>
+
+  <nav class="nav" aria-label="Main navigation">
+    <a href="#projects">Projects</a>
+    <a href="#about">About</a>
+    <a class="nav-contact" href="mailto:info@echoforma.com">Contact</a>
+  </nav>
+</header>
+
+<main>
+
+<section class="page-intro">
+  <div class="intro-inner">
+    <div class="eyebrow">EchoForma / Selected work</div>
+    <h1>Projects<span>.</span></h1>
+    <p class="intro-copy">
+      Sound-led experiences shaped by place, art and the ways we listen.
+      Explore generative soundscapes, artistic interpretations and
+      listening experiments.
+    </p>
+  </div>
+</section>
+
+<section class="projects-section" id="projects">
+  <div class="section-inner">
+
+    <div class="section-heading">
+      <div>
+        <div class="section-index">01 / SELECTED WORK</div>
+        <h2>Six sound worlds</h2>
+      </div>
+      <p class="section-intro">
+        Each project offers a different way to experience sound,
+        memory, landscape and space.
+      </p>
+    </div>
+
+    <div class="projects-grid">
+
+      <!-- 01 / Patagonia -->
+      <article class="project">
+        <svg class="project-art" viewBox="0 0 600 360"
+             fill="none" aria-hidden="true">
+          <path d="M-30 285C110 220 120 90 250 100s180 205 350 95"
+                stroke="#8baaa2" stroke-width="38" opacity=".35"/>
+          <path d="M-20 300C120 235 150 140 260 150s160 160 350 65"
+                stroke="#f5f1eb" stroke-width="1.2"/>
+          <path d="M-20 325C140 250 150 175 275 183s175 115 330 36"
+                stroke="#e4a18b" stroke-width="1.2"/>
+          <circle cx="410" cy="105" r="74"
+                  stroke="#f5f1eb" opacity=".6"/>
+        </svg>
+        <div class="project-top">
+          <span class="project-number">01</span>
+          <span class="project-tag">Landscape / Sound</span>
+        </div>
+        <div class="project-bottom">
+          <h3>Patagonia</h3>
+          <a class="project-link"
+             href="https://polinastolbova.github.io/echoforma/patagonia_soundscapes.html">
+            Explore <span>↗</span>
+          </a>
+        </div>
+      </article>
+
+      <!-- 02 / Van Gogh -->
+      <article class="project">
+        <svg class="project-art" viewBox="0 0 600 360"
+             fill="none" aria-hidden="true">
+          <circle cx="410" cy="165" r="105"
+                  stroke="#f5f1eb" stroke-width="1"/>
+          <circle cx="410" cy="165" r="75"
+                  stroke="#d58e78" stroke-width="30" opacity=".45"/>
+          <path d="M270 30c100 65 115 115 70 190s-25 105 110 130"
+                stroke="#fff8ee" stroke-width="2"/>
+          <path d="M320 10c-30 110 10 140 100 180s95 90 140 155"
+                stroke="#f5f1eb" stroke-width="1"/>
+        </svg>
+        <div class="project-top">
+          <span class="project-number">02</span>
+          <span class="project-tag">Art / Interpretation</span>
+        </div>
+        <div class="project-bottom">
+          <h3>Van Gogh</h3>
+          <a class="project-link"
+             href="https://polinastolbova.github.io/echoforma/van_gogh_soundscapes.html">
+            Explore <span>↗</span>
+          </a>
+        </div>
+      </article>
+
+      <!-- 03 / Dostoevsky Museum -->
+      <article class="project">
+        <svg class="project-art" viewBox="0 0 600 360"
+             fill="none" aria-hidden="true">
+          <path d="M60 260h480M90 230h420M125 200h350M160 170h280M195 140h210"
+                stroke="#f5f1eb" stroke-width="13" opacity=".7"/>
+          <path d="M80 280V95h440v185M120 95v185M480 95v185"
+                stroke="#87918d" stroke-width="1.3"/>
+          <circle cx="300" cy="95" r="52"
+                  stroke="#e4a18b" stroke-width="1.5"/>
+        </svg>
+        <div class="project-top">
+          <span class="project-number">03</span>
+          <span class="project-tag">Memory / Place</span>
+        </div>
+        <div class="project-bottom">
+          <h3>Dostoevsky<br>Museum</h3>
+          <a class="project-link"
+             href="https://polinastolbova.github.io/echoforma/dostoevsky_soundscape.html">
+            Explore <span>↗</span>
+          </a>
+        </div>
+      </article>
+
+      <!-- 04 / The magic of sound -->
+      <article class="project">
+        <svg class="project-art" viewBox="0 0 600 360"
+             fill="none" aria-hidden="true">
+          <path d="M-20 260C80 120 175 85 260 170s145 140 360-65"
+                stroke="#f5f1eb" stroke-width="35" opacity=".5"/>
+          <path d="M-20 270C95 150 175 120 270 190s155 100 360-65"
+                stroke="#b79b61" stroke-width="1.5"/>
+          <path d="M-10 300C100 180 180 155 285 215s160 70 350-65"
+                stroke="#e4a18b" stroke-width="1.5"/>
+          <circle cx="435" cy="95" r="34"
+                  fill="#f5f1eb" opacity=".65"/>
+        </svg>
+        <div class="project-top">
+          <span class="project-number">04</span>
+          <span class="project-tag">Generative Sound</span>
+        </div>
+        <div class="project-bottom">
+          <h3>The magic of<br>sound</h3>
+          <a class="project-link"
+             href="https://polinastolbova.github.io/echoforma/musical_synthesizers.html">
+            Explore <span>↗</span>
+          </a>
+        </div>
+      </article>
+
+      <!-- 05 / The voice of stone and fire -->
+      <article class="project">
+        <svg class="project-art" viewBox="0 0 600 360"
+             fill="none" aria-hidden="true">
+          <circle cx="300" cy="180" r="112"
+                  stroke="#f5f1eb" opacity=".65"/>
+          <circle cx="300" cy="180" r="82"
+                  stroke="#b79b61" stroke-width="22" opacity=".45"/>
+          <path d="M55 180C95 115 125 245 165 180S235 115 275 180s70 65 110 0 70-65 110 0 75 65 95 0"
+                stroke="#8baaa2" stroke-width="3"/>
+          <path d="M55 205C105 165 135 245 185 205s80-40 130 0 80 40 130 0 80-40 145 0"
+                stroke="#e4a18b" stroke-width="1.5"/>
+        </svg>
+        <div class="project-top">
+          <span class="project-number">05</span>
+          <span class="project-tag">Prehistoric Worlds / Soundscape</span>
+        </div>
+        <div class="project-bottom">
+          <h3>The voice of<br>stone and fire</h3>
+          <a class="project-link"
+             href="https://polinastolbova.github.io/echoforma/the_voice_of_stone_and_fire.html">
+            Explore <span>↗</span>
+          </a>
+        </div>
+      </article>
+
+      <!-- 06 / Armenia -->
+      <article class="project">
+        <svg class="project-art" viewBox="0 0 600 360"
+             fill="none" aria-hidden="true">
+          <path d="M-20 250C80 210 95 70 200 110s120 190 220 110 100-130 210-75"
+                stroke="#8baaa2" stroke-width="32" opacity=".35"/>
+          <path d="M-20 250C80 210 95 70 200 110s120 190 220 110 100-130 210-75"
+                stroke="#f5f1eb" stroke-width="1.5"/>
+          <path d="M-20 290C100 250 120 125 220 155s120 165 225 90 90-100 185-55"
+                stroke="#e4a18b" stroke-width="1.5"/>
+          <circle cx="390" cy="110" r="56"
+                  stroke="#b79b61" stroke-width="1.5"/>
+          <circle cx="390" cy="110" r="28"
+                  stroke="#f5f1eb" stroke-width="1"/>
+        </svg>
+        <div class="project-top">
+          <span class="project-number">06</span>
+          <span class="project-tag">Place / Generative Sound</span>
+        </div>
+        <div class="project-bottom">
+          <h3>What Does<br>Armenia Sound Like?</h3>
+          <a class="project-link"
+             href="https://polinastolbova.github.io/echoforma/kak_zvuchit_armenia.html">
+            Explore <span>↗</span>
+          </a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section class="closing" id="about">
+  <div class="closing-inner">
+    <div class="eyebrow">A different perspective</div>
+    <h2>The sound is never <em>just</em> a background.</h2>
+    <p class="closing-copy">
+      It can reveal a place, suggest a distance, carry a memory or
+      open a way into an experience that cannot be reached through
+      images alone.
+    </p>
+    <a class="back-link"
+       href="https://polinastolbova.github.io/echoforma/">
+      <span>←</span> Back to EchoForma
+    </a>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <span class="footer-mark">
+    <svg viewBox="0 0 54 38" fill="none" aria-hidden="true">
+      <path d="M2 8C11 1 19 1 28 8s17 7 24 0"
+            stroke="#a8c4c1" stroke-width="6" stroke-linecap="round"/>
+      <path d="M2 19C11 12 19 12 28 19s17 7 24 0"
+            stroke="#e4a18b" stroke-width="6" stroke-linecap="round"/>
+    </svg>
+    EchoForma
+  </span>
+  <span>Sound / Space / Experience</span>
+  <span>© <span id="year">2026</span></span>
+</footer>
+
+<script>
+document.getElementById("year").textContent =
+  new Date().getFullYear();
+</script>
+
+</body>
+</html>
