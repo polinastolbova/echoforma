@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f2ede3">
+  <meta name="description" content="Zhiganov Museum — a generative soundscape for the museum of composer Nazib Zhiganov in Kazan.">
+  <title>Zhiganov Museum — EchoForma</title>
+  <style>
+    /* =========================================================
+       ECHO FORMA / ZHIGANOV MUSEUM
+       Quick edits: change the palette in :root below.
+       ========================================================= */
+    :root {
+      --paper: #f2ede3;
+      --paper-light: #faf7f0;
+      --ink: #29251f;
+      --muted: #756b5f;
+      --line: rgba(54, 45, 35, .22);
+      --ochre: #a57b4e;
+      --olive: #72745b;
+      --rust: #b96f52;
+      --deep: #292b25;
+      --page-width: 1280px;
+      --gutter: clamp(22px, 6vw, 86px);
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font-family: Inter, "Helvetica Neue", Arial, sans-serif; line-height: 1.55; }
+    a { color: inherit; }
+    a:focus-visible { outline: 2px solid var(--rust); outline-offset: 4px; }
+    .topline { height: 4px; background: linear-gradient(90deg, var(--deep), var(--ochre), #d4c3a7, var(--olive), var(--deep)); }
+    .site-header { max-width: var(--page-width); margin: auto; padding: 25px var(--gutter) 0; display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+    .brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-size: 21px; font-weight: 750; letter-spacing: -.055em; }
+    .brand-mark { width: 34px; height: 27px; display: block; }
+    .brand span { color: #343b3a; }
+    .nav { display: flex; gap: clamp(14px, 3vw, 32px); }
+    .nav a { padding: 5px 0 7px; color: var(--muted); text-decoration: none; text-transform: uppercase; font-size: 10px; letter-spacing: .13em; border-bottom: 1px solid transparent; }
+    .nav a:hover { border-color: var(--rust); color: var(--ink); }
+    .hero { max-width: var(--page-width); margin: auto; padding: clamp(75px, 11vw, 150px) var(--gutter) 75px; position: relative; overflow: hidden; }
+    .hero::before { content: ""; position: absolute; width: 43vw; height: 43vw; max-width: 560px; max-height: 560px; min-width: 300px; min-height: 300px; border: 1px solid rgba(114,116,91,.35); border-radius: 50%; right: -7%; top: 2%; box-shadow: 0 0 0 26px rgba(114,116,91,.035), 0 0 0 70px rgba(114,116,91,.025); }
+    .hero::after { content: ""; position: absolute; width: 33vw; height: 33vw; max-width: 420px; max-height: 420px; min-width: 230px; min-height: 230px; border: 1px solid rgba(185,111,82,.32); border-radius: 50%; right: 0; top: 12%; transform: rotate(-25deg) scaleX(.68); }
+    .hero-inner { position: relative; z-index: 1; max-width: 790px; }
+    .eyebrow, .section-label { font-size: 10px; font-weight: 700; letter-spacing: .23em; text-transform: uppercase; color: var(--ochre); }
+    .eyebrow { display: flex; align-items: center; gap: 12px; margin: 0 0 25px; }
+    .eyebrow::before { content: ""; width: 32px; height: 1px; background: var(--rust); }
+    h1 { margin: 0; font-size: clamp(54px, 9.5vw, 124px); line-height: .86; letter-spacing: -.085em; font-weight: 450; }
+    h1 span { display: block; margin-top: 13px; font-family: Georgia, "Times New Roman", serif; font-weight: 400; font-style: italic; color: var(--olive); letter-spacing: -.07em; }
+    .hero-description { max-width: 540px; margin: 32px 0 0; color: #514a40; font-family: Georgia, "Times New Roman", serif; font-size: clamp(18px, 2vw, 22px); line-height: 1.5; }
+    .hero-foot { display: flex; flex-wrap: wrap; gap: 24px 42px; margin-top: 36px; padding-top: 18px; border-top: 1px solid var(--line); max-width: 610px; }
+    .hero-stat strong { display: block; font-family: Georgia, serif; font-size: 25px; font-weight: 400; line-height: 1.2; }
+    .hero-stat span { color: var(--muted); font-size: 9px; text-transform: uppercase; letter-spacing: .14em; }
+    .divider { max-width: calc(var(--page-width) - 2 * var(--gutter)); margin: 0 auto; height: 1px; background: var(--line); }
+    .intro { max-width: var(--page-width); margin: auto; padding: 68px var(--gutter) 55px; display: grid; grid-template-columns: .85fr 1.15fr; gap: clamp(30px, 8vw, 115px); }
+    h2 { margin: 12px 0 0; font-family: Georgia, "Times New Roman", serif; font-size: clamp(34px, 4.5vw, 56px); font-weight: 400; line-height: 1.02; letter-spacing: -.055em; }
+    .intro-copy { max-width: 650px; color: #514a40; font-size: 14px; }
+    .intro-copy p:first-child { margin-top: 0; }
+    .intro-note { margin-top: 24px; padding-left: 16px; border-left: 2px solid var(--rust); color: var(--muted); font-family: Georgia, serif; font-size: 15px; }
+    .zones { max-width: var(--page-width); margin: auto; padding: 20px var(--gutter) 100px; }
+    .zones-heading { display: flex; justify-content: space-between; align-items: end; gap: 25px; margin-bottom: 27px; }
+    .zones-heading h2 { font-size: clamp(32px, 4vw, 46px); }
+    .zones-heading p { margin: 0 0 5px; color: var(--muted); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
+    .zone-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .zone { position: relative; min-width: 0; padding: 25px 27px 22px; border: 1px solid rgba(255,255,255,.78); background: rgba(255,252,246,.68); box-shadow: 0 16px 40px rgba(55,45,34,.045); transition: transform .25s, box-shadow .25s; }
+    .zone:hover { transform: translateY(-3px); box-shadow: 0 22px 48px rgba(55,45,34,.09); }
+    .zone-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+    .zone-number { color: var(--ochre); font-family: Georgia, serif; font-size: 22px; }
+    .zone-tag { color: var(--muted); font-size: 9px; letter-spacing: .14em; text-align: right; }
+    .wave { height: 62px; margin: 15px 0 17px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); display: flex; align-items: center; }
+    .wave svg { width: 100%; height: 50px; overflow: visible; }
+    .wave path { fill: none; stroke: var(--olive); stroke-width: 1.4; vector-effect: non-scaling-stroke; }
+    .wave .wave-soft { stroke: var(--rust); stroke-width: 1; opacity: .65; }
+    .zone-kicker { margin: 0 0 7px; color: var(--ochre); font-size: 9px; letter-spacing: .18em; text-transform: uppercase; }
+    .zone h3 { margin: 0; font-family: Georgia, "Times New Roman", serif; font-weight: 400; font-size: clamp(25px, 3vw, 34px); letter-spacing: -.04em; line-height: 1.08; }
+    .zone-description { max-width: 430px; min-height: 62px; margin: 12px 0 22px; color: #5b5349; font-size: 12px; line-height: 1.7; }
+    .zone-bottom { display: flex; justify-content: space-between; align-items: end; gap: 18px; padding-top: 17px; border-top: 1px solid var(--line); }
+    .listen { display: inline-flex; align-items: center; gap: 9px; color: var(--ink); font-size: 11px; text-decoration: none; }
+    .listen:hover { color: var(--rust); }
+    .play { display: inline-grid; place-items: center; width: 30px; height: 30px; border: 1px solid var(--line); border-radius: 50%; font-size: 9px; padding-left: 2px; }
+    .qr-wrap { display: flex; align-items: center; gap: 8px; }
+    .qr { display: block; width: 64px; height: 64px; border: 4px solid #f5f0e7; image-rendering: pixelated; }
+    .qr-wrap span { max-width: 50px; color: var(--muted); font-size: 8px; letter-spacing: .1em; line-height: 1.5; }
+    .how { background: var(--deep); color: var(--paper); padding: 66px var(--gutter) 72px; }
+    .how-inner { max-width: 1110px; margin: auto; display: grid; grid-template-columns: .8fr 1.2fr; gap: 65px; }
+    .how .section-label { color: #c5a77e; }
+    .how h2 { max-width: 390px; }
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; align-self: center; }
+    .step { padding-top: 14px; border-top: 1px solid rgba(242,237,227,.3); }
+    .step-number { color: #c5a77e; font-family: Georgia, serif; font-size: 22px; }
+    .step h3 { margin: 12px 0 7px; font-size: 12px; font-weight: 600; }
+    .step p { margin: 0; color: #c8c2b6; font-size: 11px; line-height: 1.65; }
+    .statement { max-width: var(--page-width); margin: auto; padding: 76px var(--gutter) 82px; }
+    blockquote { max-width: 900px; margin: 16px 0 0; font-family: Georgia, "Times New Roman", serif; font-size: clamp(32px, 5.5vw, 66px); letter-spacing: -.055em; line-height: 1.12; }
+    blockquote em { color: var(--olive); }
+    footer { display: flex; justify-content: space-between; gap: 18px; max-width: var(--page-width); margin: auto; padding: 25px var(--gutter) 32px; border-top: 1px solid var(--line); color: var(--muted); font-size: 9px; letter-spacing: .05em; }
+    footer a { color: var(--ink); text-decoration: none; }
+    @media (max-width: 760px) { .hero::before { right: -25%; top: 10%; opacity: .65; } .intro, .how-inner { grid-template-columns: 1fr; gap: 22px; } .zone-grid { grid-template-columns: 1fr; } .zone-description { min-height: 0; } .steps { gap: 14px; } }
+    @media (max-width: 480px) { .site-header { align-items: flex-start; } .brand { font-size: 18px; } .brand-mark { width: 29px; } .nav { gap: 10px; padding-top: 7px; } .nav a { font-size: 8px; letter-spacing: .08em; } .hero { padding-top: 83px; } .hero::before { right: -58%; top: 7%; } .hero::after { right: -32%; top: 18%; } .hero-foot { gap: 20px; } .zones-heading { align-items: flex-start; flex-direction: column; gap: 8px; } .zone { padding: 21px 18px 18px; } .zone-bottom { gap: 10px; } .qr { width: 56px; height: 56px; } .qr-wrap span { display: none; } .steps { grid-template-columns: 1fr; } footer { flex-direction: column; } }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition-duration: .01ms !important; } }
+  </style>
+</head>
+<body>
+  <div class="topline"></div>
+  <header class="site-header">
+    <a class="brand" href="https://polinastolbova.github.io/echoforma/" aria-label="EchoForma home">
+      <svg class="brand-mark" viewBox="0 0 44 34" aria-hidden="true"><path d="M3 8 C10 2,16 2,23 8 S36 14,41 8" fill="none" stroke="#a9c9c6" stroke-width="5" stroke-linecap="round"/><path d="M3 17 C10 11,16 11,23 17 S36 23,41 17" fill="none" stroke="#eaa18b" stroke-width="5" stroke-linecap="round"/><path d="M3 26 C10 20,16 20,23 26 S36 32,41 26" fill="none" stroke="#a9c9c6" stroke-width="5" stroke-linecap="round"/></svg>
+      <span>EchoForma</span>
+    </a>
+    <nav class="nav" aria-label="Main navigation"><a href="#about">About</a><a href="#zones">Sound zones</a><a href="#how">How it works</a></nav>
+  </header>
+  <main id="top">
+    <section class="hero" aria-labelledby="page-title"><div class="hero-inner">
+      <p class="eyebrow">EchoForma · Generative sound project · Kazan</p>
+      <h1 id="page-title">Zhiganov <span>Museum</span></h1>
+      <p class="hero-description">A generative soundscape for the museum of composer Nazib Zhiganov — listening to the space through the objects that inhabit it.</p>
+      <div class="hero-foot"><div class="hero-stat"><strong>04</strong><span>Sound zones</span></div><div class="hero-stat"><strong>QR</strong><span>Listen in place</span></div><div class="hero-stat"><strong>KZN</strong><span>Kazan, Tatarstan</span></div></div>
+    </div></section>
+    <div class="divider"></div>
+    <section class="intro" id="about"><div><div class="section-label">The project</div><h2>Objects become points of listening.</h2></div><div class="intro-copy"><p>What if a museum could be heard as well as seen? Zhiganov Museum is a generative soundscape imagined as an additional, intimate layer of the museum visit.</p><p>QR codes placed beside selected objects invite visitors to scan with a phone and listen. Each code opens a sound piece connected to a zone: the writing desk, the piano, decorative objects, or the composer’s room. Sound does not replace the object or its history; it offers another way to spend time with it.</p><div class="intro-note">A small gesture — scan, listen, notice the room again.</div></div></section>
+    <section class="zones" id="zones"><div class="zones-heading"><div><div class="section-label">Listening map</div><h2>Four sound zones</h2></div><p>Choose a zone or scan its QR code</p></div><div class="zone-grid"><article class="zone" id="zone-01">
+      <div class="zone-top"><span class="zone-number">01</span><span class="zone-tag">WORK · MEMORY</span></div>
+      <div class="wave" aria-hidden="true"><svg viewBox="0 0 320 56" preserveAspectRatio="none"><path d="M0 29 C12 29 12 15 24 15 S36 42 48 42 60 9 72 9 84 34 96 34 108 20 120 20 132 46 144 46 156 13 168 13 180 29 192 29 204 7 216 7 228 39 240 39 252 18 264 18 276 32 288 32 300 23 320 23"/><path class="wave-soft" d="M0 38 C22 38 22 27 44 27 S66 43 88 43 110 17 132 17 154 35 176 35 198 25 220 25 242 42 264 42 286 30 320 30"/></svg></div>
+      <p class="zone-kicker">Generative soundscape</p><h3>Writing Desk Zone</h3><p class="zone-description">A quiet, textured drone, rare whispered tones and delicate paper-like gestures.</p>
+      <div class="zone-bottom"><a class="listen" href="https://youtu.be/k1ac7tw6VFY" target="_blank" rel="noopener noreferrer"><span class="play" aria-hidden="true">▶</span> Listen to this zone <span aria-hidden="true">↗</span></a>
+      <div class="qr-wrap"><img class="qr" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKUAAAClCAIAAACySaqNAAADj0lEQVR4nO2dwWodMQwAk5A/KoX+/ykQ8h299tJ7jwFD9FAkeb2dmWvWu84bBEK27Oe/f34/CYaXqycgW9E3C32z0DcLfbPQNwt9s9A3C32zeI3//OPnrz3z+Hh/+/bY1CTjDy2vmnt4jngaxjcLfbPQNwt9s3iQry1UsqqFVP4SP7zMKn648VXxw/FvddUvaXyz0DcLfbPQN4tcvrbQWNhqpJJGNWaRKbb9ksY3C32z0DcLfbMo5WvbaKygpUpmqbG3wPhmoW8W+mahbxb3yNdiKmlUqhj3H2RzxjcLfbPQNwt9syjla3NLnFflTalCXjy28t05jG8W+mahbxb6ZpHL1w4pIVV29qdWS1PVtzPbRReMbxb6ZqFvFvpm8XzH83JTmVFl7JkNFRWMbxb6ZqFvFvpm8SBfazyPrPFsjDseuFYpxjVifLPQNwt9s9A3i8F+g0on5txS49yJHXOrpY0PG98s9M1C3yz0zSJXX4uZ2+2VonG1dOHM7Wypf9D4ZqFvFvpmoW8WnfcbNCZ3lWlUJtl4LdaZd1kZ3yz0zULfLPTNItdvMLdxbO5Vc90IqbHbtu+5Hiqf6JuFvlnom0Vnv0E8duGQbsrGxoaYQ/5f45uFvlnom4W+WQyev9ZYFJu7dz2eVWN+Ojd2wfqafKJvFvpmoW8Wh56/1pjNxZy5ajnXqmF8s9A3C32z0DeLB/W1uQNjUzdOzXUybFu0bbyotILxzULfLPTNQt8sOutrVy1EVl41990U2w5rM75Z6JuFvlnom8Vgv0HMtuXC1JtTH0oxN6vUq4xvFvpmoW8W+mbxYD10bptV/PDcaulC49htNbIKxjcLfbPQNwt9s8jtX0vlTYccGDt3M+lC4z1Y8dhKNmd8s9A3C32z0DeLe/SHziWGc42o287aTX3X+Gahbxb6ZqFvFp39oRVSDZKH7COrNKI2fsjzPORL9M1C3yz0zaLz/tAUjcdspPKXq/aRbTt6N8b4ZqFvFvpmoW8WuXxtYW59cK7PYduBa4177hrfbHyz0DcLfbPQN4tSvjZH47ayVHbT2Jda2YM2V140vlnom4W+WeibxaH52lXbu+aYK5mlML5Z6JuFvlnom0UpX9uWCs3dRxWP3ca2U3yNbxb6ZqFvFvpmkcvXtpWBzrwsPcWZZT7jm4W+Weibhb5ZHHr+mgxhfLPQNwt9s9A3C32z0DcLfbPQNwt9s/gHZV4qSrP2zQcAAAAASUVORK5CYII=" alt="QR code to listen to Writing Desk Zone"><span>SCAN TO LISTEN</span></div></div>
+    </article><article class="zone" id="zone-02">
+      <div class="zone-top"><span class="zone-number">02</span><span class="zone-tag">RESONANCE · HARMONY</span></div>
+      <div class="wave" aria-hidden="true"><svg viewBox="0 0 320 56" preserveAspectRatio="none"><path d="M0 29 C12 29 12 15 24 15 S36 42 48 42 60 9 72 9 84 34 96 34 108 20 120 20 132 46 144 46 156 13 168 13 180 29 192 29 204 7 216 7 228 39 240 39 252 18 264 18 276 32 288 32 300 23 320 23"/><path class="wave-soft" d="M0 38 C22 38 22 27 44 27 S66 43 88 43 110 17 132 17 154 35 176 35 198 25 220 25 242 42 264 42 286 30 320 30"/></svg></div>
+      <p class="zone-kicker">Generative soundscape</p><h3>Piano Zone</h3><p class="zone-description">Soft harmonic layers unfold around the piano, with slowly shifting tones and a gentle sense of breath.</p>
+      <div class="zone-bottom"><a class="listen" href="https://youtu.be/ZSv32wORRr0" target="_blank" rel="noopener noreferrer"><span class="play" aria-hidden="true">▶</span> Listen to this zone <span aria-hidden="true">↗</span></a>
+      <div class="qr-wrap"><img class="qr" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKUAAAClCAIAAACySaqNAAADk0lEQVR4nO3dQWocMRBG4TjkRibg+68CIefI1pvsvRwoiMY1VSX1+L1vO+Pucf8ICrVUevn3/vebML6f/gHayrxZzJvFvFnMm8W8WcybxbxZzJvlx/rj159ve37Hn9+/Hr7v+m/Dp6ecepKB45vFvFnMm8W8We7Ua0Fj7bOuX06VYJVftf5y6tOUVCXo+GYxbxbzZjFvlly9FlRmwbbdd13rVS4VVP7BbU/S8c1i3izmzWLeLKV6bU6qyErVL43vJZ/iPWzg+GYxbxbzZjFvlovWaxWNa9++Hsc3i3mzmDeLebOU6rVrTiGlVCbyGifUtj1JxzeLebOYN4t5s+TqtWecfmoswRrLt1NP0vHNYt4s5s1i3ix36rUvMIOWkno9mirQLvIkHd8s5s1i3izmzfKyPt+gcWX/M64US82Rzf2DlZ8ROL5ZzJvFvFnMm+VOvRbMbYGstMqYa7ORcpEK1HpNN+bNYt4s5s2Sq9dS5qaf5paGXaQTb+XK1mu6MW8W82Yxb5bB86hS67lOtUULn17kfIO5UtfxzWLeLObNYt4spfOoUsvxG6+8vlFqrqpxQq1Sn4ZP5/4FxzeLebOYN4t5s+T2G6zNnUIw1zlj2xkFnveuA8ybxbxZzJuls59H5S1eZYJp7dR+g8p/1PhaNnB8s5g3i3mzmDfL4P7QuS2fKY1zc6dOP1j/qsD5Nd2YN4t5s5g3S+d+g8ZSKJh7H3qqCceps6wc3yzmzWLeLObNsm/92vrLKddsuLaty4jza/os82YxbxbzZin1X5tbZpW61LbObimN+xwaX7w6vlnMm8W8WcybJdfPI2h8i1eZyGu879xm0lPPKnB8s5g3i3mzmDdL6X3o3LKy9Y1SGtuKBNtORPX8UD3IvFnMm8W8WTr7eTR+ubJJYG7LZ0pjK5RGjm8W82YxbxbzZhk8jyplrjXIqbm5yqXmNlQ4vlnMm8W8WcybpXQeVcXccvzKpbYduFX5suvX9FnmzWLeLObNUtpvMFewpAqlba9WK93oUuZejzq+WcybxbxZzJulVK/NmTuUIGVuoVwj++Xqv8ybxbxZzJvlovVaRWOnkErzj4q5YyUc3yzmzWLeLObNcqz/WuVG247mTJ3ZPrfz1P5repB5s5g3i3mz5Oq1bdtFG5eVzdV6jYvsgrkvO75ZzJvFvFnMm6V0HpWejuObxbxZzJvFvFnMm8W8WcybxbxZzJvlAwlyGyFNCxdNAAAAAElFTkSuQmCC" alt="QR code to listen to Piano Zone"><span>SCAN TO LISTEN</span></div></div>
+    </article><article class="zone" id="zone-03">
+      <div class="zone-top"><span class="zone-number">03</span><span class="zone-tag">MATERIAL · OBJECTS</span></div>
+      <div class="wave" aria-hidden="true"><svg viewBox="0 0 320 56" preserveAspectRatio="none"><path d="M0 29 C12 29 12 15 24 15 S36 42 48 42 60 9 72 9 84 34 96 34 108 20 120 20 132 46 144 46 156 13 168 13 180 29 192 29 204 7 216 7 228 39 240 39 252 18 264 18 276 32 288 32 300 23 320 23"/><path class="wave-soft" d="M0 38 C22 38 22 27 44 27 S66 43 88 43 110 17 132 17 154 35 176 35 198 25 220 25 242 42 264 42 286 30 320 30"/></svg></div>
+      <p class="zone-kicker">Generative soundscape</p><h3>Decorative Objects Zone</h3><p class="zone-description">Material-inspired drones and small ceramic-like clicks give ordinary objects a subtle acoustic presence.</p>
+      <div class="zone-bottom"><a class="listen" href="https://youtu.be/hZ2MJ8O-qH0" target="_blank" rel="noopener noreferrer"><span class="play" aria-hidden="true">▶</span> Listen to this zone <span aria-hidden="true">↗</span></a>
+      <div class="qr-wrap"><img class="qr" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKUAAAClCAIAAACySaqNAAADn0lEQVR4nO3dwaoUQQxGYa/4RiL4/itBfA63bty7FAKTMTeVdI/nfNu53dN3fgKhqrrq7fevnx+E8fHqB9Aq82YxbxbzZjFvFvNmMW8W82Yxb5ZP+cefv3zdeY4f37+9+3vDtSX5F5XuHG7V+Y868me2vlnMm8W8Wcyb5Um/FnQ6o6DUKOV/3GmUDnZVpR9n7ZcMrG8W82YxbxbzZqn1a8HcKFjegnWuDZ+WOsEgv3PnmXOdXs/6ZjFvFvNmMW+WVr82p9QKrQ2K5b3ewSGzOdY3i3mzmDeLebPctF8LOiNZnbnU/4/1zWLeLObNYt4srX5trrs5uDr/YDeX37nT+q31idY3i3mzmDeLebPU+rW1lxyDudcP1iZeg6t+SeubxbxZzJvFvFme9GtXzQ92hq7mFvp33GSm1fpmMW8W82Yxb5ba/mtrb0SGW5XmNDv7eazpLMHrpGB9s5g3i3mzmDdLa3ytszRsbXuPjrUtOnIHp2WtbxbzZjFvFvNmuen4WjDX3K0NEXZebOjcObC+WcybxbxZzJvlLT/vfa2dKV2bO9hUBgdfF51rhHPWN4t5s5g3i3mzPOnXgoODYmsnGORPdbCpvGrdnOvX9JB5s5g3i3mz1Pq1YK1hWRuNmvuP5n6N0q2sbxbzZjFvFvNmeY3xtbXzqNb26Q3mRhsD65vFvFnMm8W8WVrr127yBujBCdDOtWvjax3WN4t5s5g3i3mztM43mNs1bG3IbG6RXc71a9pg3izmzWLeLK39166a08yvveqop7l9RA7+R9Y3i3mzmDeLebPU5kODuRczSzqvH6wdGBqsNcKB9c1i3izmzWLeLK33Q3Nru5WVHuMmB1Dl5h7S+mYxbxbzZjFvltb42is6OCZ41WBcpwO1vlnMm8W8WcybpbV+bc7ae6n33M8j/9Tz3vWvzJvFvFnMm6V2fuicuVVmVx2Lld8q/17nQ3WGebOYN4t5s9T285jbhaL0RQd3Clnr5uZaMOdD9ZB5s5g3i3mz1Pq1YK1h6QxOXTW+dvBaz3vXO5k3i3mzmDdLq1+7ykvsxJtfG8xN6QbWN4t5s5g3i3mz3LRf68xpdkbfwqedVWYHG8P8zr5voIfMm8W8WcybpdWvXbUma+500fzagw1aZ4iw87Nb3yzmzWLeLObN0jo/dM7cfh4Hp0fXzpkvPYbja/rLvFnMm8W8WQbPN9ANWd8s5s1i3izmzWLeLObNYt4s5s1i3ix/AHD6PIHn42WSAAAAAElFTkSuQmCC" alt="QR code to listen to Decorative Objects Zone"><span>SCAN TO LISTEN</span></div></div>
+    </article><article class="zone" id="zone-04">
+      <div class="zone-top"><span class="zone-number">04</span><span class="zone-tag">SPACE · PRESENCE</span></div>
+      <div class="wave" aria-hidden="true"><svg viewBox="0 0 320 56" preserveAspectRatio="none"><path d="M0 29 C12 29 12 15 24 15 S36 42 48 42 60 9 72 9 84 34 96 34 108 20 120 20 132 46 144 46 156 13 168 13 180 29 192 29 204 7 216 7 228 39 240 39 252 18 264 18 276 32 288 32 300 23 320 23"/><path class="wave-soft" d="M0 38 C22 38 22 27 44 27 S66 43 88 43 110 17 132 17 154 35 176 35 198 25 220 25 242 42 264 42 286 30 320 30"/></svg></div>
+      <p class="zone-kicker">Generative soundscape</p><h3>Room of Zhiganov</h3><p class="zone-description">A spacious, slowly changing sound field inspired by the intimate atmosphere of the composer’s room.</p>
+      <div class="zone-bottom"><a class="listen" href="https://youtu.be/tT22S10Qg9g" target="_blank" rel="noopener noreferrer"><span class="play" aria-hidden="true">▶</span> Listen to this zone <span aria-hidden="true">↗</span></a>
+      <div class="qr-wrap"><img class="qr" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKUAAAClCAIAAACySaqNAAADmUlEQVR4nO3dy2pUQRRGYSN5IxF8/5EgPodTJ84dCgWpzs6+VLVrfdNOzkn6Z8Omri9/fv/6JIzPp/8AjTJvFvNmMW8W82YxbxbzZjFvFvNmed1//OXrt5m/4+eP7x9+7/53l0/77N976ptcWN8s5s1i3izmzfKgX1sU9j77/mX/oszv7mV6rtB7x77JhfXNYt4s5s1i3iyxfm2RGQUrfFGoyQq1YGODYmPfpPXNYt4s5s1i3iypfq1PaE5z+eHCeclQZ3RqHjbE+mYxbxbzZjFvlkv7tb1QzxWaxMw8+c4GbWF9s5g3i3mzmDdLql871aFkhr32n2bWzWXat7Fv0vpmMW8W82Yxb5ZYvza2nmuvcMFaZm9p4djcGOubxbxZzJvFvFle7jwvt7CdyXRkhc3dJaxvFvNmMW8W82aJnb9WuP7+zr2lY+8NyTSVC+ubxbxZzJvFvFkqz/MoHKvKvHds2GvsRNzCJ1vfLObNYt4s5s3yYD400yn0tTOZXQGhJxe2fqfO+F1Y3yzmzWLeLObNkrrfoG+ca6zn2p/dFvqrCjeE9l1tZX2zmDeLebOYN0vjeR6FlzmNDajtnzx2yWnfWSDWN4t5s5g3i3mzpOZDCzuyZxyMK7z4qpDzofrHvFnMm8W8WSrnQ/cKJxPvPEgjM0S46LuTwfpmMW8W82Yxb5bK+6j61q/tpwsz3U3myYtTq9tCrG8W82YxbxbzZrl0f+glWxdCTm3GcP2a3mTeLObNYt4slevXLtF3CEfhVQkhhesErW8W82YxbxbzZnkwH9rXkY2tzu+7SCHToJ3ayWB9s5g3i3mzmDdL5f0Gi8IZwLE7QEPnrxUOe+15/po+yLxZzJvFvFka16+FFJ72MbYR9Rm/HOubxbxZzJvFvFmOzYfu9S0NGzth7c4TSqxvFvNmMW8W82Z50K894xBS6MkZhX1i6MmZ/8j6ZjFvFvNmMW+W1Hm5GX03J2TWoJ26oz70w65f03uZN4t5s5g3S+N+g0XhoWmFx9j23SSQ6ar6pketbxbzZjFvFvNmqbzfoNDYURl7p25EDfG8XL3JvFnMm8W8WS7t1xaF+zRDLVjm8I+MvpVx1jeLebOYN4t5s6T6tUt2j4Y+DT15376Ffrfv+LkQ65vFvFnMm8W8WWL92th20cITcftkNjbs9f2w9c1i3izmzWLeLA/Oy9V/xvpmMW8W82YxbxbzZjFvFvNmMW8W82b5CwGMGu8YRWIcAAAAAElFTkSuQmCC" alt="QR code to listen to Room of Zhiganov"><span>SCAN TO LISTEN</span></div></div>
+    </article></div></section>
+    <section class="how" id="how"><div class="how-inner"><div><div class="section-label">In the museum</div><h2>Listening is part of the visit.</h2></div><div class="steps"><article class="step"><span class="step-number">01</span><h3>Find the code</h3><p>A QR code sits beside a selected object or in a dedicated listening point.</p></article><article class="step"><span class="step-number">02</span><h3>Scan with your phone</h3><p>The code opens the corresponding soundscape video, without a separate app.</p></article><article class="step"><span class="step-number">03</span><h3>Listen and look again</h3><p>Stay with the object and experience the space through sound.</p></article></div></div></section>
+    <section class="statement"><div class="section-label">EchoForma · Sound as an encounter</div><blockquote>Not background music, but <em>another way of noticing.</em></blockquote></section>
+  </main>
+  <footer><span>© EchoForma · Zhiganov Museum</span><a href="#top">Back to the beginning ↑</a></footer>
+</body>
+</html>
