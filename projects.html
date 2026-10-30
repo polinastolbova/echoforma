@@ -850,43 +850,122 @@ footer {
 <!-- 09 / Sounding America -->
 
 <article class="project">
-  <div class="project-top" style="background: #d9d9d1;">
+  <div class="project-top" style="background: #ded5c9;">
     <div class="project-number">09</div>
     <div class="project-tag">Generative Soundscape · America</div>
+
     <div class="project-art">
       <svg viewBox="0 0 500 300" role="img"
-           aria-label="Abstract American landscape and sound waves">
+           aria-label="Abstract vinyl record and expanding sound frequencies">
+
         <defs>
-          <linearGradient id="americaLandscape" x1="0" y1="0" x2="0.9" y2="1">
-            <stop offset="0%" stop-color="#b8b9a9"/>
-            <stop offset="55%" stop-color="#d4a58a"/>
-            <stop offset="100%" stop-color="#e8d4b6"/>
+          <linearGradient id="americaRecord" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#bd7864"/>
+            <stop offset="55%" stop-color="#98594e"/>
+            <stop offset="100%" stop-color="#573f3c"/>
           </linearGradient>
+
+          <linearGradient id="americaWave" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#b66e5c" stop-opacity="0.2"/>
+            <stop offset="50%" stop-color="#a65e50"/>
+            <stop offset="100%" stop-color="#d49a77" stop-opacity="0.2"/>
+          </linearGradient>
+
+          <clipPath id="americaClip">
+            <circle cx="245" cy="145" r="112"/>
+          </clipPath>
         </defs>
-        <rect width="500" height="300" fill="url(#americaLandscape)"/>
-        <circle cx="365" cy="75" r="35" fill="#f3dfbd" opacity=".9"/>
-        <path d="M0 190 L85 105 L150 175 L235 85 L325 180 L405 110 L500 195 L500 300 L0 300Z"
-              fill="#7e8981" opacity=".8"/>
-        <path d="M0 220 Q95 175 175 215 T340 205 T500 220 L500 300 L0 300Z"
-              fill="#bd8c72" opacity=".85"/>
-        <path d="M0 245 Q100 205 190 245 T370 235 T500 245"
-              fill="none" stroke="#f4e5cd" stroke-width="2"/>
-        <path d="M0 260 Q100 225 200 260 T390 250 T500 260"
-              fill="none" stroke="#596e69" stroke-width="1.6"/>
-        <path d="M25 75 C95 25 145 125 215 75 S335 25 405 75 S465 110 500 75"
-              fill="none" stroke="#f4e5cd" stroke-width="1.5" opacity=".85"/>
-        <path d="M35 95 C105 45 155 145 225 95 S345 45 415 95"
-              fill="none" stroke="#596e69" stroke-width="1.2" opacity=".65"/>
-        <path d="M65 115 C125 75 175 155 245 115 S355 75 425 115"
-              fill="none" stroke="#f4e5cd" stroke-width="1" opacity=".7"/>
+
+        <!-- Background geometry -->
+        <circle cx="245" cy="145" r="128"
+                fill="none" stroke="#9b6a5d"
+                stroke-width="0.8" opacity="0.35"/>
+
+        <circle cx="245" cy="145" r="145"
+                fill="none" stroke="#9b6a5d"
+                stroke-width="0.7" opacity="0.2"/>
+
+        <!-- Sound waves -->
+        <g fill="none" stroke="url(#americaWave)" stroke-width="1.3">
+          <path d="M20 75 C90 20 140 25 190 70 S300 120 365 55 S450 30 490 65"/>
+          <path d="M10 95 C80 45 135 45 185 85 S300 140 370 75 S450 55 495 85"/>
+          <path d="M5 195 C80 145 130 155 185 195 S300 245 365 185 S450 155 500 195"/>
+          <path d="M10 220 C85 175 140 180 190 220 S300 265 370 210 S450 185 495 220"/>
+        </g>
+
+        <!-- Vinyl record -->
+        <circle cx="245" cy="145" r="112"
+                fill="url(#americaRecord)"/>
+
+        <g clip-path="url(#americaClip)"
+           fill="none" stroke="#e5b69a">
+
+          <circle cx="245" cy="145" r="101" stroke-width="0.8" opacity="0.65"/>
+          <circle cx="245" cy="145" r="93" stroke-width="0.7" opacity="0.5"/>
+          <circle cx="245" cy="145" r="85" stroke-width="0.8" opacity="0.6"/>
+          <circle cx="245" cy="145" r="77" stroke-width="0.7" opacity="0.45"/>
+          <circle cx="245" cy="145" r="69" stroke-width="0.8" opacity="0.6"/>
+          <circle cx="245" cy="145" r="61" stroke-width="0.7" opacity="0.45"/>
+
+          <path d="M120 115 C175 65 280 70 350 120"
+                stroke-width="1.1" opacity="0.45"/>
+
+          <path d="M130 185 C190 225 290 225 355 175"
+                stroke-width="1" opacity="0.4"/>
+        </g>
+
+        <!-- Record label -->
+        <circle cx="245" cy="145" r="34"
+                fill="#e5b68d"/>
+
+        <circle cx="245" cy="145" r="25"
+                fill="#b56d59"/>
+
+        <circle cx="245" cy="145" r="4"
+                fill="#ead8c5"/>
+
+        <!-- Frequency lines -->
+        <g fill="none" stroke="#f0d9c2" stroke-width="1.2" opacity="0.9">
+          <path d="M245 33 V65"/>
+          <path d="M245 225 V257"/>
+          <path d="M133 145 H165"/>
+          <path d="M325 145 H357"/>
+        </g>
+
+        <!-- Small signal markers -->
+        <g fill="#f0d9c2">
+          <circle cx="245" cy="22" r="2"/>
+          <circle cx="245" cy="268" r="2"/>
+          <circle cx="122" cy="145" r="2"/>
+          <circle cx="368" cy="145" r="2"/>
+        </g>
+
+        <!-- Side waveform -->
+        <path d="M395 115
+                 L405 115 L412 95 L420 155
+                 L428 80 L436 180
+                 L444 105 L452 145
+                 L460 115 L480 115"
+              fill="none" stroke="#98594e"
+              stroke-width="1.5" opacity="0.8"/>
+
+        <!-- Small typography -->
+        <g fill="#74544b"
+           font-family="monospace"
+           font-size="8"
+           letter-spacing="2">
+          <text x="28" y="278">FREQUENCY / 09</text>
+          <text x="390" y="270">USA</text>
+        </g>
+
       </svg>
     </div>
   </div>
+
   <div class="project-bottom">
     <h3>Sounding America</h3>
-    <a class="project-link"
-       href="https://polinastolbova.github.io/sounding_america/"
-       target="_blank" rel="noopener noreferrer">
+    <a class="project-link" href="https://polinastolbova.github.io/sounding_america/" 
+      target="_blank" rel="noopener noreferrer">
       Explore <span>↗</span>
     </a>
   </div>
@@ -937,6 +1016,51 @@ footer {
     <h3>Kyrgyzstan</h3>
     <a class="project-link"
        href="https://polinastolbova.github.io/kyrgyzstan"
+       target="_blank" rel="noopener noreferrer">
+      Explore <span>↗</span>
+    </a>
+  </div>
+</article>
+
+      <!-- 11 / Chingiz Aitmatov -->
+
+<article class="project">
+  <div class="project-top" style="background: #d9d9d1;">
+    <div class="project-number">09</div>
+    <div class="project-tag">Generative Soundscape · America</div>
+    <div class="project-art">
+      <svg viewBox="0 0 500 300" role="img"
+           aria-label="landscape and sound of museum">
+        <defs>
+          <linearGradient id="americaLandscape" x1="0" y1="0" x2="0.9" y2="1">
+            <stop offset="0%" stop-color="#b8b9a9"/>
+            <stop offset="55%" stop-color="#d4a58a"/>
+            <stop offset="100%" stop-color="#e8d4b6"/>
+          </linearGradient>
+        </defs>
+        <rect width="500" height="300" fill="url(#americaLandscape)"/>
+        <circle cx="365" cy="75" r="35" fill="#f3dfbd" opacity=".9"/>
+        <path d="M0 190 L85 105 L150 175 L235 85 L325 180 L405 110 L500 195 L500 300 L0 300Z"
+              fill="#7e8981" opacity=".8"/>
+        <path d="M0 220 Q95 175 175 215 T340 205 T500 220 L500 300 L0 300Z"
+              fill="#bd8c72" opacity=".85"/>
+        <path d="M0 245 Q100 205 190 245 T370 235 T500 245"
+              fill="none" stroke="#f4e5cd" stroke-width="2"/>
+        <path d="M0 260 Q100 225 200 260 T390 250 T500 260"
+              fill="none" stroke="#596e69" stroke-width="1.6"/>
+        <path d="M25 75 C95 25 145 125 215 75 S335 25 405 75 S465 110 500 75"
+              fill="none" stroke="#f4e5cd" stroke-width="1.5" opacity=".85"/>
+        <path d="M35 95 C105 45 155 145 225 95 S345 45 415 95"
+              fill="none" stroke="#596e69" stroke-width="1.2" opacity=".65"/>
+        <path d="M65 115 C125 75 175 155 245 115 S355 75 425 115"
+              fill="none" stroke="#f4e5cd" stroke-width="1" opacity=".7"/>
+      </svg>
+    </div>
+  </div>
+  <div class="project-bottom">
+    <h3>Chingiz Aitmatov</h3>
+    <a class="project-link"
+       href=""
        target="_blank" rel="noopener noreferrer">
       Explore <span>↗</span>
     </a>
